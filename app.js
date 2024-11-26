@@ -21,6 +21,29 @@ async function makeApiRequest(url, method, data, accessToken = null) {
     return await response.json();
 }
 
+async function populateUniversityDropdown() {
+    const dropdown = document.getElementById('signup-universityname');
+    try {
+        console.log('Fetching universities...');
+        const response = await makeApiRequest(
+            'http://18.117.164.164:4001/api/v1/common/get_universities?page=1&page_size=10',
+            'GET'
+        );
+
+        const universities = response.data.data;
+        universities.forEach((university) => {
+            const option = document.createElement('option');
+            option.value = university._id;
+            option.textContent = `${university.name} (${university.city}, ${university.country})`;
+            dropdown.appendChild(option);
+        });
+        console.log('University dropdown populated.');
+    } catch (error) {
+        console.error('Failed to fetch universities:', error);
+        alert('Unable to load universities. Please try again later.');
+    }
+}
+
 // Signup functionality
 const signupForm = document.getElementById('signup-form');
 signupForm.addEventListener('submit', async (event) => {
@@ -29,13 +52,15 @@ signupForm.addEventListener('submit', async (event) => {
     const first_name = document.getElementById('signup-firstname').value;
     const last_name = document.getElementById('signup-lastname').value;
     const email = document.getElementById('signup-email').value;
-    const university = document.getElementById('signup-universityname').value;
+    // const university = document.getElementById('signup-universityname').value;
+    const university = document.getElementById('signup-universityname').options[document.getElementById('signup-universityname').selectedIndex].textContent; // Selected university name
     const university_id = document.getElementById('signup-universityid').value;
     const phone = document.getElementById('signup-phone').value;
     const address = document.getElementById('signup-addr').value;
     const password = document.getElementById('signup-password').value;
     try {
         console.log('Sending signup API request'); // Debugging step
+        // console.log(university);
         await makeApiRequest('http://18.117.164.164:4001/api/v1/student/create', 'POST', 
             { first_name, last_name, email, 
             university, university_id, phone, address, password });
@@ -46,6 +71,9 @@ signupForm.addEventListener('submit', async (event) => {
         alert('Signup failed. Please try again.');
     }
 });
+
+document.addEventListener('DOMContentLoaded', populateUniversityDropdown);
+
 
 // OTP Verification functionality
 const otpForm = document.getElementById('otp-form');
