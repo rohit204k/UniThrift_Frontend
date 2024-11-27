@@ -1,7 +1,7 @@
-document.getElementById('reset-password-btn').addEventListener('click', async () => {
-    const email = document.getElementById('reset-email').value;
-    const otp = document.getElementById('reset-input').value;
-    const password = document.getElementById('reset-password').value;
+document.getElementById('verify-otp-btn').addEventListener('click', async () => {
+    const email = document.getElementById('otp-email').value;
+    const otp = document.getElementById('otp-input').value;
+    const password = document.getElementById('otp-password').value;
 
     // Check if all fields are filled
     if (!email || !otp || !password) {
@@ -10,7 +10,7 @@ document.getElementById('reset-password-btn').addEventListener('click', async ()
     }
 
     try {
-        const response = await fetch('http://18.117.164.164:4001/api/v1/student/verify_otp', {
+        const response = await fetch('http://18.117.164.164:4001/api/v1/admin/verify_otp', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -19,13 +19,13 @@ document.getElementById('reset-password-btn').addEventListener('click', async ()
                 email,
                 otp,
                 password,
-                verification_type: 'FORGOT_PASSWORD',
+                verification_type: 'AUTHENTICATION',
             }),
         });
 
         if (response.ok) {
-            alert('Password Reset Success!. Redirecting to Login...');
-            window.location.href = 'login.html';
+            alert('OTP Verified Successfully. Redirecting to Login...');
+            window.location.href = 'admin_login.html';
         } else {
             const errorData = await response.json();
             alert(`OTP Verification Failed: ${errorData.message}`);

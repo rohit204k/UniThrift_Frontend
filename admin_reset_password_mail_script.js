@@ -18,7 +18,7 @@ document.getElementById('send-email-btn').addEventListener('click', async () => 
         console.log('Sending OTP request...'); // Debugging step
 
         // Make the API request
-        const response = await fetch('http://18.117.164.164:4001/api/v1/student/send_otp', {
+        const response = await fetch('http://18.117.164.164:4001/api/v1/admin/send_otp', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestBody)
@@ -33,7 +33,7 @@ document.getElementById('send-email-btn').addEventListener('click', async () => 
 
         // Notify the user
         alert('OTP sent successfully! Please check your email.');
-        window.location.href = 'otp_verification.html';
+        window.location.href = 'admin_reset_password.html';
     } catch (error) {
         console.error('Error sending OTP:', error);
         alert('Failed to send OTP. Please try again.');

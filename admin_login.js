@@ -29,7 +29,7 @@ loginForm.addEventListener('submit', async (event) => {
     try {
         // Send login request to API
         const response = await makeApiRequest(
-            'http://18.117.164.164:4001/api/v1/student/login',
+            'http://18.117.164.164:4001/api/v1/admin/login',
             'POST',
             { email, password }
         );
@@ -41,7 +41,7 @@ loginForm.addEventListener('submit', async (event) => {
 
             alert('Login successful!');
             // Redirect to items.html
-            window.location.href = 'items.html';
+            window.location.href = 'items.html'; //NEED TO CHANGE 
         }
     } catch (error) {
         console.error('Login error:', error);
