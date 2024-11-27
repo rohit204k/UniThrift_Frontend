@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login, Reset Password & Profile Update</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="userstyles.css">
 </head>
 <body>
     <img src="TEMPLATES/unithirft_logo.png" alt="UniThrift Logo" id="logo">
@@ -18,9 +18,17 @@
                 <button type="submit">Login</button>
             </form>
             <p>Forgot password? <a href="reset_password_mail.html" id="forgot-password-link">Reset Password</a></p>
+            <p id="login-error" style="color: red; display: none;">Invalid email or password. Please try again.</p>
         </div>
 
-        <div id="password-reset-container" style="display: none;">
+    </div>
+
+    <script src="login.js"></script>
+</body>
+</html>
+
+
+        <!-- <div id="password-reset-container" style="display: none;">
             <h2>Reset Password</h2>
             <form id="password-reset-form">
                 <input type="email" id="password-reset-email" placeholder="Email" required>
@@ -35,9 +43,4 @@
                 <input type="email" id="profile-email" placeholder="Email" required>
                 <button type="submit">Update Profile</button>
             </form>
-        </div>
-    </div>
-
-    <script src="app.js"></script>
-</body>
-</html>
+        </div> -->
