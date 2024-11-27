@@ -1,0 +1,38 @@
+body {
+  font-family: Arial, sans-serif;
+  background-image: url('TEMPLATES/homelisting.jpg'); /* Relative path to the image */
+  background-size: cover; /* Stretch the image to cover the entire screen */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent repeating */
+  height: 100vh; /* Ensure the background covers the full viewport height */
+  margin: 0;
+  padding: 0;
+  color: #000; /* Black text for readability */
+  display: flex; /* Use Flexbox for centering */
+  justify-content: center; /* Horizontally center content */
+  align-items: center; /* Vertically center content */
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  text-align: center; /* Center align text */
+}
+
+#item-details {
+  color: #000; /* Ensure item details text is black */
+  margin-top: 20px; /* Add some spacing above item details */
+}
+
+a {
+  color: #000; /* Black link color for consistency */
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline; /* Underline on hover */
+}
