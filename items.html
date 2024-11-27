@@ -8,6 +8,10 @@
 </head>
 <body>
   <div class="container">
+    <!-- <button id="create-listing" class="create-listing-button">Create Listing</button> -->
+    <!-- Create Item Button -->
+    <button id="create-item-btn" class="create-listing-button" onclick="window.location.href='create_listing.html'">Create Item</button>
+
     <h1>Available Listings</h1>
     <div id="item-list"></div>
     <!-- Pagination Controls -->
@@ -15,12 +19,8 @@
     <button id="back-button" style="display:none;">Back</button>
   </div>
 
-    <!-- Include the update_delete.js file first -->
   <script src="update_delete.js"></script>
-  <!-- Then include the items.js file -->
   <script src="items.js"></script>
-
-  <!-- <script src="items.js"></script> -->
 </body>
 </html>
 

@@ -72,7 +72,7 @@ async function fetchItems(page = 1) {
 
       if (availableItems.length > 0) {
         displayItems(availableItems);
-        updatePaginationButtons(filteredItems.length + availableItems.length);
+        updatePaginationButtons(filteredItems.length + availableItems.length); // Update buttons visibility
       } else {
         itemListContainer.innerHTML = '<p>No items available.</p>';
         hideAllButtons();
@@ -113,17 +113,18 @@ function displayItems(items) {
 
 // Update pagination buttons based on the current page
 function updatePaginationButtons(totalAvailableItems) {
+  // Show both buttons by default
   nextButton.style.display = 'block';
   backButton.style.display = 'block';
 
+  // Hide the Back button on the first page
   if (currentPage === 1) {
-    backButton.style.display = 'none'; // Hide Back button on the first page
+    backButton.style.display = 'none';
   }
 
-  if (totalAvailableItems < itemsPerPage) {
-    nextButton.style.display = 'none'; // Hide Next button if no more items are available
-  } else {
-    nextButton.style.display = 'block'; // Show Next button if there are more items
+  // Hide the Next button on the last page (if there are no more items to load)
+  if (totalAvailableItems <= currentPage * itemsPerPage) {
+    nextButton.style.display = 'none';
   }
 }
 

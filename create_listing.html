@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Item Listing</title>
+  <link rel="stylesheet" href="create_listing.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Create New Item Listing</h1>
+    <!-- Item Creation Form -->
+    <form id="create-item-form">
+      <label for="title">Title</label>
+      <input type="text" id="title" name="title" required>
+
+      <label for="category">Category</label>
+      <select id="category" name="category" required></select>
+
+      <label for="description">Description</label>
+      <textarea id="description" name="description" required></textarea>
+
+      <label for="price">Price</label>
+      <input type="number" id="price" name="price" required>
+
+      <button type="submit">Submit Listing</button>
+    </form>
+    <button id="back-button" onclick="window.location.href='items.html'">Back to Items</button>
+  </div>
+
+  <script src="create_listing.js"></script>
+</body>
+</html>

@@ -94,12 +94,19 @@ function openUpdateForm(itemOrEvent) {
         status = itemOrEvent.status;
     }
 
-    const descriptionInput = createInputField('Description', description);
-    const priceInput = createInputField('Price', price, 'number');
-    const statusInput = createInputField('Status (AVAILABLE/SOLD)', status);
+    // Inside the openUpdateForm function
+    const descriptionInput = createInputField('Description', description, 'text', 'Enter item description');
+    const priceInput = createInputField('Price', price, 'number', 'Enter item price');
+    const statusInput = createInputField('Status (AVAILABLE/ONHOLD/SOLD)', status, 'text', 'Enter item status');
 
     const saveButton = document.createElement('button');
     saveButton.textContent = 'Save';
+    saveButton.style.marginRight = '10px';
+    saveButton.style.padding = '8px 15px';
+    saveButton.style.backgroundColor = '#4CAF50';
+    saveButton.style.color = 'white';
+    saveButton.style.border = 'none';
+    saveButton.style.borderRadius = '4px';
     saveButton.addEventListener('click', () => {
         const updatedData = {
             description: descriptionInput.querySelector('input').value,
@@ -117,11 +124,17 @@ function openUpdateForm(itemOrEvent) {
 
     const cancelButton = document.createElement('button');
     cancelButton.textContent = 'Cancel';
+    cancelButton.style.padding = '8px 15px';
+    cancelButton.style.backgroundColor = '#f44336';
+    cancelButton.style.color = 'white';
+    cancelButton.style.border = 'none';
+    cancelButton.style.borderRadius = '4px';
     cancelButton.addEventListener('click', () => closeModal(modal, backdrop));
 
     const buttonContainer = document.createElement('div');
     buttonContainer.appendChild(saveButton);
     buttonContainer.appendChild(cancelButton);
+    buttonContainer.style.marginTop = '15px';
 
     modal.appendChild(title);
     modal.appendChild(descriptionInput);
@@ -131,6 +144,7 @@ function openUpdateForm(itemOrEvent) {
 
     document.body.appendChild(modal);
 }
+
 
 function showDeleteConfirmation(item) {
     // Initialize variables
@@ -211,27 +225,34 @@ function showDeleteConfirmation(item) {
 }
 
 // Helper function to create input fields
-function createInputField(labelText, value = '', type = 'text') {
+function createInputField(labelText, value = '', type = 'text', placeholder = '') {
     const container = document.createElement('div');
-    container.style.marginBottom = '10px';
+    container.style.marginBottom = '15px'; // Increased margin for better spacing
 
+    // Create the label element
     const label = document.createElement('label');
-    label.textContent = labelText;
-    label.style.display = 'block';
-    label.style.marginBottom = '5px';
+    label.textContent = labelText; // Set the text for the label
+    label.style.display = 'block'; // Ensure the label appears above the input
+    label.style.fontWeight = 'bold'; // Optional: Make the label bold
+    label.style.marginBottom = '5px'; // Space between the label and input
 
+    // Create the input element
     const input = document.createElement('input');
     input.type = type;
     input.value = value;
-    input.style.width = '100%';
-    input.style.padding = '8px';
-    input.style.border = '1px solid #ccc';
-    input.style.borderRadius = '4px';
+    input.placeholder = placeholder; // Set the placeholder text
+    input.style.width = '100%'; // Full width of the container
+    input.style.padding = '8px'; // Padding for better usability
+    input.style.border = '1px solid #ccc'; // Light border
+    input.style.borderRadius = '4px'; // Rounded corners
 
+    // Append the label and input to the container
     container.appendChild(label);
     container.appendChild(input);
-    return container;
+
+    return container; // Return the container with both label and input
 }
+
 
 // Function to close the modal
 function closeModal(modal, backdrop) {
@@ -248,32 +269,27 @@ async function updateListing(listingId, updatedData) {
     const apiUrl = `http://18.117.164.164:4001/api/v1/listing/update/${listingId}`;
 
     try {
-        const response = await makeApiRequest(apiUrl, 'PUT', {
-            description: updatedData.description,
-            price: updatedData.price,
-            status: updatedData.status
-        }, accessToken());
+        const response = await makeApiRequest(apiUrl, 'PUT', updatedData, accessToken());
 
         if (response && response.status === 'SUCCESS') {
-            // Update the item in the DOM
+            // Locate item container
             const itemElement = document.querySelector(`.item[data-item-id="${listingId}"]`);
             if (itemElement) {
-                const priceElement = itemElement.querySelector('p:nth-child(2)');
-                const statusElement = itemElement.querySelector('p:nth-child(3)');
-                // Update the DOM elements with new values
-                if (priceElement) priceElement.textContent = `Price: $${updatedData.price}`;
-                if (statusElement) statusElement.textContent = `Status: ${updatedData.status}`;
-                itemElement.querySelector('.item-description').textContent = updatedData.description; // Update description
+                // Update displayed description, price, and status
+                itemElement.querySelector('.item-description').textContent = updatedData.description;
+                itemElement.querySelector('.item-price').textContent = `Price: $${updatedData.price}`;
+                itemElement.querySelector('.item-status').textContent = `Status: ${updatedData.status}`;
             }
             alert('Listing updated successfully!');
         } else {
-            alert(`Error: ${response.errorData.message}`);
+            alert(`Failed to update listing: ${response.errorData.message}`);
         }
     } catch (error) {
-        console.error('Error updating listing:', error);
-        alert('An unexpected error occurred. Please try again.');
+        console.error('Error while updating listing:', error);
+        alert('An error occurred while updating the listing. Please try again.');
     }
 }
+
 
 // Function to delete a listing
 async function deleteListing(listingId) {
