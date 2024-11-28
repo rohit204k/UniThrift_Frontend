@@ -2,8 +2,7 @@
 const API_BASE_URL = "http://18.117.164.164:4001/api/v1";
 
 // Access token for API authentication
-const getAccessToken = () => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjc0MGMxZTRlZDYyNmYxMTM3MjhmYjNmIiwidXNlcl90eXBlIjoiU1RVREVOVCIsInRva2VuX3R5cGUiOiJiZWFyZXIiLCJpYXQiOjE3MzI2NDYzNDksImV4cCI6MTczMjczMjc0OX0.JIbl6hCJWj3W-zz323ei8aSZGyZHzcK7eam5o65mAgs";
-
+const getAccessToken = () => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjc0MGMxZTRlZDYyNmYxMTM3MjhmYjNmIiwidXNlcl90eXBlIjoiU1RVREVOVCIsInRva2VuX3R5cGUiOiJiZWFyZXIiLCJpYXQiOjE3MzI3NTExMjcsImV4cCI6MTczMjgzNzUyN30.OGE5wrAQP5yyyyNWSkNUg3o5hZm00a9GGTCKLcpkIMA";
 // Get the necessary DOM elements
 const createItemForm = document.getElementById('create-item-form');
 const categorySelect = document.getElementById('category');
@@ -37,50 +36,86 @@ function populateCategoryDropdown(categories) {
     });
 }
 
-// Function to handle form submission
 createItemForm.addEventListener('submit', async function (event) {
-    event.preventDefault(); // Prevent form from reloading the page
-
+    event.preventDefault();
+  
     // Get form values
     const title = document.getElementById('title').value;
-    const categoryId = categorySelect.value; // Get selected category ID
+    const categoryId = categorySelect.value;
     const description = document.getElementById('description').value;
     const price = document.getElementById('price').value;
-    console.error(categoryId);
-
+    const imageInput = document.getElementById('image');
+    const imageFile = imageInput.files[0];
+  
     // Prepare data to send to the backend
     const itemData = {
-        title: title,
-        item_id: categoryId, // Use selected category ID
-        description: description,
-        price: parseFloat(price)
+      title: title,
+      item_id: categoryId,
+      description: description,
+      price: parseFloat(price)
     };
-
+  
     try {
-        // Send the data to the backend with authentication token
-        const response = await fetch('http://18.117.164.164:4001/api/v1/listing/create', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${getAccessToken()}`,  // Include the access token here
-            },
-            body: JSON.stringify(itemData)
+      // Send the data to the backend with authentication token
+      const response = await fetch('http://18.117.164.164:4001/api/v1/listing/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${getAccessToken()}`,
+        },
+        body: JSON.stringify(itemData)
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        const listingId = data.data.listing_id;
+        // const listingId="6747c67b3443ee33b30aa097";
+  
+        // Generate the pre-signed URL for image upload
+        const presignedUrlResponse = await fetch(`${API_BASE_URL}/listing/image/generate_upload_url`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${getAccessToken()}`,
+          },
+          body: JSON.stringify({ listing_id: listingId, file_extension: imageFile.type.split('/')[1] }),
         });
-
-        // Handle the response from the backend
-        if (response.ok) {
-            const data = await response.json();
-            alert('Item created successfully!'); // Show a success message
-            window.location.href = 'items.html'; // Redirect to the main items page
+  
+        if (presignedUrlResponse.ok) {
+          const { data } = await presignedUrlResponse.json();
+          const presignedUrl = data.url;
+          console.log('Pre-signed URL:', presignedUrl);
+  
+          // Upload the image using the pre-signed URL
+          await fetch(presignedUrl, {
+            method: 'PUT',
+            // mode: 'no-cors',
+            headers: {
+              'Content-Type': 'application/octet-stream',
+            },
+            body: imageFile,
+          });
+  
+          alert('Item created and image uploaded successfully!');
+          window.location.href = 'items.html';
         } else {
-            const errorData = await response.json();
-            alert('Error creating item: ' + errorData.message);
+          try {
+            const errorData = await presignedUrlResponse.json();
+            alert('Error generating pre-signed URL: ' + errorData.message);
+          } catch (error) {
+            console.error('Error reading response:', error);
+            alert('There was an error generating the pre-signed URL.');
+          }
         }
+      } else {
+        const errorData = await response.json();
+        alert('Error creating item: ' + errorData.message);
+      }
     } catch (error) {
-        console.error('Error:', error);
-        alert('There was an error submitting the item.');
+      console.error('Error:', error);
+      alert('There was an error submitting the item.');
     }
-});
+  });
 
 // Fetch categories when the page loads
 fetchCategories();

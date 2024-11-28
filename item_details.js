@@ -1,12 +1,10 @@
 // Access token for API authentication
 // Access token for API authentication
-const accessToken = () => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjc0MGMxZTRlZDYyNmYxMTM3MjhmYjNmIiwidXNlcl90eXBlIjoiU1RVREVOVCIsInRva2VuX3R5cGUiOiJiZWFyZXIiLCJpYXQiOjE3MzI2NDYzNDksImV4cCI6MTczMjczMjc0OX0.JIbl6hCJWj3W-zz323ei8aSZGyZHzcK7eam5o65mAgs";
-
+const accessToken = () => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjc0MGMxZTRlZDYyNmYxMTM3MjhmYjNmIiwidXNlcl90eXBlIjoiU1RVREVOVCIsInRva2VuX3R5cGUiOiJiZWFyZXIiLCJpYXQiOjE3MzI3NTExMjcsImV4cCI6MTczMjgzNzUyN30.OGE5wrAQP5yyyyNWSkNUg3o5hZm00a9GGTCKLcpkIMA";
 // Get the necessary DOM elements
 const itemDetailsContainer = document.getElementById('item-details');
 const backButton = document.getElementById('back-button');
 
-// Function to fetch item details based on the item ID
 async function fetchItemDetails(itemId) {
   try {
     const apiUrl = `http://18.117.164.164:4001/api/v1/listing/get_listing/${itemId}`;
@@ -14,11 +12,17 @@ async function fetchItemDetails(itemId) {
     console.log('API URL:', apiUrl);
 
     const response = await makeApiRequest(apiUrl, 'GET', null, accessToken());
-
     console.log('API Response:', response);
 
     if (response && response.status === 'SUCCESS' && response.data) {
-      displayItemDetails(response.data);
+      const imageUrls = await Promise.all(response.data.images.map(async (imageId) => {
+        const imageApiUrl = `http://18.117.164.164:4001/api/v1/listing/image/generate_get_url?key=${imageId}`;
+        const imageResponse = await makeApiRequest(imageApiUrl, 'GET', null, accessToken());
+        return imageResponse.data.url;
+      }));
+
+      const itemData = { ...response.data, images: imageUrls };
+      displayItemDetails(itemData);
     } else if (response && response.status === 'FAIL' && response.errorData.errorCode === 404) {
       console.warn('Item not found:', response.errorData.message);
       itemDetailsContainer.innerHTML = '<p>Item not found. Please check the item ID and try again.</p>';
@@ -31,17 +35,22 @@ async function fetchItemDetails(itemId) {
     itemDetailsContainer.innerHTML = '<p>Failed to load item details. Please try again later.</p>';
   }
 }
-
-
-// Function to display item details on the page
 function displayItemDetails(item) {
   console.log('Displaying item details:', item);
+
+  let imageHtml = '';
+  for (let i = 0; i < item.images.length; i++) {
+    imageHtml += `<img src="${item.images[i]}" alt="Product Image ${i + 1}" class="product-image">`;
+  }
+
   itemDetailsContainer.innerHTML = `
-    <h2>${item.item_name}</h2>
+    <h2>${item.title}</h2>
+    <p><strong>Category:</strong> ${item.item_name}</p>
     <p><strong>Description:</strong> ${item.description}</p>
     <p><strong>Price:</strong> $${item.price}</p>
     <p><strong>Status:</strong> ${item.status}</p>
     <p><strong>Seller ID:</strong> ${item.seller_id}</p>
+    <div class="product-images">${imageHtml}</div>
   `;
 }
 

@@ -4,11 +4,12 @@ const nextButton = document.getElementById('next-button');
 const backButton = document.getElementById('back-button');
 
 // Variables to handle pagination
-let currentPage = 1; // Start from the first page
-const itemsPerPage = 6; // Adjust based on API response
+let currentPage = 1;
+const itemsPerPage = 6;
+let totalItems = 0;
 
 // Access token for API authentication
-const accessToken = () => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjc0MGMxZTRlZDYyNmYxMTM3MjhmYjNmIiwidXNlcl90eXBlIjoiU1RVREVOVCIsInRva2VuX3R5cGUiOiJiZWFyZXIiLCJpYXQiOjE3MzI2NDYzNDksImV4cCI6MTczMjczMjc0OX0.JIbl6hCJWj3W-zz323ei8aSZGyZHzcK7eam5o65mAgs";
+const accessToken = () => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjc0MGMxZTRlZDYyNmYxMTM3MjhmYjNmIiwidXNlcl90eXBlIjoiU1RVREVOVCIsInRva2VuX3R5cGUiOiJiZWFyZXIiLCJpYXQiOjE3MzI3NTExMjcsImV4cCI6MTczMjgzNzUyN30.OGE5wrAQP5yyyyNWSkNUg3o5hZm00a9GGTCKLcpkIMA";
 
 // Make API request function
 async function makeApiRequest(url, method, data = null, accessToken = null) {
@@ -33,71 +34,59 @@ async function makeApiRequest(url, method, data = null, accessToken = null) {
   return await response.json();
 }
 
-// Fetch items with pagination after filtering out deleted items
-async function fetchItems(page = 1) {
+// Fetch all non-deleted items across all pages
+async function fetchAllItems() {
   try {
-    const apiUrl = `http://18.117.164.164:4001/api/v1/listing/get_listings?page=${page}&page_size=${itemsPerPage}`;
-    const response = await makeApiRequest(apiUrl, 'GET', null, accessToken());
+    let page = 1;
+    let allItems = [];
+    let hasMoreItems = true;
 
-    if (response && response.status === 'SUCCESS' && response.data) {
-      // Filter out deleted items
-      const filteredItems = response.data.filter(item => !item.is_deleted);
+    while (hasMoreItems) {
+      const apiUrl = `http://18.117.164.164:4001/api/v1/listing/get_listings?page=${page}&page_size=${itemsPerPage}`;
+      const response = await makeApiRequest(apiUrl, 'GET', null, accessToken());
 
-      // Ensure we display exactly itemsPerPage items after filtering
-      const availableItems = [];
-      let nextPage = page;
+      if (response && response.status === 'SUCCESS' && response.data) {
+        // Filter out deleted items
+        const nonDeletedItems = response.data.filter(item => !item.is_deleted);
+        
+        // Add non-deleted items to the collection
+        allItems.push(...nonDeletedItems);
 
-      while (availableItems.length < itemsPerPage && response.data.length > 0) {
-        // Add valid items to the availableItems array
-        availableItems.push(...filteredItems.slice(0, itemsPerPage - availableItems.length));
-
-        // If we still need more items, fetch the next page
-        if (availableItems.length < itemsPerPage) {
-          nextPage++;
-          const nextResponse = await makeApiRequest(
-            `http://18.117.164.164:4001/api/v1/listing/get_listings?page=${nextPage}&page_size=${itemsPerPage}`,
-            'GET',
-            null,
-            accessToken()
-          );
-
-          if (nextResponse && nextResponse.status === 'SUCCESS' && nextResponse.data) {
-            response.data = nextResponse.data;
-            filteredItems.push(...response.data.filter(item => !item.is_deleted));
-          } else {
-            break; // Stop if no more data is returned
-          }
+        // Check if we've fetched all items
+        if (nonDeletedItems.length < itemsPerPage) {
+          hasMoreItems = false;
         }
-      }
 
-      if (availableItems.length > 0) {
-        displayItems(availableItems);
-        updatePaginationButtons(filteredItems.length + availableItems.length); // Update buttons visibility
+        page++;
       } else {
-        itemListContainer.innerHTML = '<p>No items available.</p>';
-        hideAllButtons();
+        // No more items or error occurred
+        hasMoreItems = false;
       }
-    } else {
-      console.error('Unexpected API response:', response);
-      itemListContainer.innerHTML = '<p>Failed to load items. Please try again later.</p>';
-      hideAllButtons();
     }
+
+    return allItems;
   } catch (error) {
-    console.error('Error fetching items:', error);
-    itemListContainer.innerHTML = '<p>Failed to load items. Please try again later.</p>';
-    hideAllButtons();
+    console.error('Error fetching all items:', error);
+    return [];
   }
 }
 
-// Display items on the page
-function displayItems(items) {
-  itemListContainer.innerHTML = ''; // Clear current items
+// Display items for the current page
+function displayItemsForCurrentPage(allItems) {
+  // Calculate start and end indices for the current page
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const pageItems = allItems.slice(startIndex, endIndex);
 
-  items.forEach(item => {
+  // Clear current items
+  itemListContainer.innerHTML = '';
+
+  // Display items for current page
+  pageItems.forEach(item => {
     const itemDiv = document.createElement('div');
     itemDiv.className = 'item';
     itemDiv.innerHTML = `
-      <h2>${item.description}</h2>
+      <h2>${item.title}</h2>
       <p><strong>Price:</strong> $${item.price}</p>
       <p><strong>Status:</strong> ${item.status}</p>
     `;
@@ -106,25 +95,42 @@ function displayItems(items) {
     itemDiv.addEventListener('click', () => {
       window.location.href = `item_details.html?itemId=${item._id}`;
     });
+
     renderItemActions(item, itemDiv); // Add update/delete buttons if applicable
     itemListContainer.appendChild(itemDiv);
   });
 }
 
-// Update pagination buttons based on the current page
-function updatePaginationButtons(totalAvailableItems) {
-  // Show both buttons by default
-  nextButton.style.display = 'block';
-  backButton.style.display = 'block';
+// Update pagination buttons
+function updatePaginationButtons(allItems) {
+  totalItems = allItems.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
 
-  // Hide the Back button on the first page
-  if (currentPage === 1) {
-    backButton.style.display = 'none';
-  }
+  // Show/hide buttons based on current page
+  backButton.style.display = currentPage > 1 ? 'block' : 'none';
+  nextButton.style.display = currentPage < totalPages ? 'block' : 'none';
+}
 
-  // Hide the Next button on the last page (if there are no more items to load)
-  if (totalAvailableItems <= currentPage * itemsPerPage) {
-    nextButton.style.display = 'none';
+// Main rendering function
+async function renderItems() {
+  try {
+    // Fetch all non-deleted items
+    const allItems = await fetchAllItems();
+
+    if (allItems.length > 0) {
+      // Display items for current page
+      displayItemsForCurrentPage(allItems);
+
+      // Update pagination buttons
+      updatePaginationButtons(allItems);
+    } else {
+      itemListContainer.innerHTML = '<p>No items available.</p>';
+      hideAllButtons();
+    }
+  } catch (error) {
+    console.error('Error rendering items:', error);
+    itemListContainer.innerHTML = '<p>Failed to load items. Please try again later.</p>';
+    hideAllButtons();
   }
 }
 
@@ -134,19 +140,22 @@ function hideAllButtons() {
   backButton.style.display = 'none';
 }
 
-// Event listener for the "Next" button (pagination)
+// Event listener for the "Next" button
 nextButton.addEventListener('click', () => {
-  currentPage++;
-  fetchItems(currentPage);
-});
-
-// Event listener for the "Back" button (pagination)
-backButton.addEventListener('click', () => {
-  if (currentPage > 1) {
-    currentPage--;
-    fetchItems(currentPage);
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  if (currentPage < totalPages) {
+    currentPage++;
+    renderItems();
   }
 });
 
-// Fetch the first page of items on page load
-fetchItems(currentPage);
+// Event listener for the "Back" button
+backButton.addEventListener('click', () => {
+  if (currentPage > 1) {
+    currentPage--;
+    renderItems();
+  }
+});
+
+// Initial page load
+renderItems();

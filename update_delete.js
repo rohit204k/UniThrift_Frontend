@@ -84,17 +84,19 @@ function openUpdateForm(itemOrEvent) {
     title.style.marginBottom = '15px';
     title.style.textAlign = 'center';
 
-    let listingId, description, price, status;
+    let listingId, itemTitle, description, price, status;
 
     // Extract necessary fields
     if (typeof itemOrEvent === 'object' && itemOrEvent !== null) {
         listingId = itemOrEvent.id || itemOrEvent._id || itemOrEvent.listing_id;
+        itemTitle = itemOrEvent.title; // Extract the title
         description = itemOrEvent.description;
         price = itemOrEvent.price;
         status = itemOrEvent.status;
     }
 
-    // Inside the openUpdateForm function
+    // Add input fields
+    const titleInput = createInputField('Title', itemTitle, 'text', 'Enter item title'); // New title field
     const descriptionInput = createInputField('Description', description, 'text', 'Enter item description');
     const priceInput = createInputField('Price', price, 'number', 'Enter item price');
     const statusInput = createInputField('Status (AVAILABLE/ONHOLD/SOLD)', status, 'text', 'Enter item status');
@@ -109,12 +111,18 @@ function openUpdateForm(itemOrEvent) {
     saveButton.style.borderRadius = '4px';
     saveButton.addEventListener('click', () => {
         const updatedData = {
+            title: titleInput.querySelector('input').value, // Get the new title value
             description: descriptionInput.querySelector('input').value,
             price: parseFloat(priceInput.querySelector('input').value),
             status: statusInput.querySelector('input').value,
         };
 
-        if (updatedData.description && !isNaN(updatedData.price) && updatedData.status) {
+        if (
+            updatedData.title &&
+            updatedData.description &&
+            !isNaN(updatedData.price) &&
+            updatedData.status
+        ) {
             updateListing(listingId, updatedData);
             closeModal(modal, backdrop);
         } else {
@@ -137,6 +145,7 @@ function openUpdateForm(itemOrEvent) {
     buttonContainer.style.marginTop = '15px';
 
     modal.appendChild(title);
+    modal.appendChild(titleInput); // Append the title input
     modal.appendChild(descriptionInput);
     modal.appendChild(priceInput);
     modal.appendChild(statusInput);
@@ -144,6 +153,7 @@ function openUpdateForm(itemOrEvent) {
 
     document.body.appendChild(modal);
 }
+
 
 
 function showDeleteConfirmation(item) {
