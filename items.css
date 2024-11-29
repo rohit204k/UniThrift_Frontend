@@ -1,0 +1,276 @@
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('TEMPLATES/homelisting.jpg'); /* Relative path to the image */
+    background-size: cover; /* Stretch the image to cover the entire screen */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent repeating */
+    height: 100vh; /* Ensure the background covers the full viewport height */
+    margin: 0;
+    padding: 0;
+    color: #fff; /* White text for readability */
+  }
+  
+  /* Central Container */
+  .container {
+    max-width: 1000px;
+    margin: auto;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Grid for Item List */
+  #item-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns of equal width */
+    gap: 20px; /* Spacing between grid items */
+    padding: 20px;
+    justify-items: center; /* Center align items horizontally */
+  }
+  #my-listings-container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns of equal width */
+    gap: 20px; /* Spacing between grid items */
+    padding: 20px;
+    justify-items: center; /* Center align items horizontally */
+  }
+  /* Individual Items */
+  .item {
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    color: #333; /* Dark text for readability */
+    width: 250px; /* Consistent width for all items */
+    height: 250px; /* Consistent height for all items */
+    display: flex;
+    flex-direction: column; /* Stacks content vertically */
+    justify-content: space-between; /* Equal spacing between content */
+  }
+  
+  .item:hover {
+    background: rgba(255, 255, 255, 0.9); /* Slightly brighter on hover */
+  }
+  
+  /* Buttons */
+  #next-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  #next-button:hover {
+    background-color: #45a049;
+  }
+  
+  button {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  button.save {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  button.cancel {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  button.delete {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+  
+  /* Basic styles for modals */
+  .modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    border-radius: 8px;
+    width: 300px;
+  }
+  
+  /* Styles for item action buttons */
+  .item-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  /* Update and delete button styles */
+  .update-button,
+  .delete-button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .update-button {
+    background-color: #4CAF50; /* Green */
+    color: white;
+  }
+  
+  .delete-button {
+    background-color: #f44336; /* Red */
+    color: white;
+  }
+  
+  /* Styles for input fields */
+  input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  
+  /* Button styles */
+  button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    opacity: 0.8; /* Add hover effect */
+  }
+  /* Style for modal text */
+  .modal {
+    color: #333; /* Set a visible text color (e.g., dark gray) */
+    background: #fff; /* Ensure the modal background is white */
+  }
+  
+  /* Style for the buttons */
+  button {
+    color: white; /* Text color for buttons */
+    font-weight: bold; /* Make text bold for better readability */
+  }
+  
+  button.update-button {
+    background-color: #4CAF50; /* Green for update button */
+  }
+  
+  button.delete-button {
+    background-color: #f44336; /* Red for delete button */
+  }
+  
+  /* Style for modal labels and input fields */
+  .modal label {
+    color: #000; /* Black text color for labels */
+    font-weight: bold;
+  }
+  
+  .modal input {
+    color: #333; /* Ensure input text is visible */
+  }
+  
+  /* Style for the confirmation message in the delete modal */
+  .delete-confirmation-modal p {
+    color: #000; /* Black text color for message */
+  }
+  
+  /* Backdrop should dim the background but not hide text */
+  .modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent dark background */
+  }
+
+.create-listing-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.create-listing-button:hover {
+  background-color: #45a049;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  display: flex;
+  background-image: url('TEMPLATES/homelisting.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #fff;
+}
+
+.navigation-panel {
+  width: 200px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 5px rgba(255, 255, 255, 0.1);
+}
+
+.navigation-panel button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.navigation-panel button:hover {
+  background-color: #45a049;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  border-radius: 10px;
+}
