@@ -13,7 +13,8 @@ body {
   
   /* Central Container */
   .container {
-    max-width: 1000px;
+    max-width: 2500px;
+    max-height: 2000px;
     margin: auto;
     background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black background */
     padding: 20px;
@@ -24,15 +25,15 @@ body {
   /* Grid for Item List */
   #item-list {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columns of equal width */
-    gap: 20px; /* Spacing between grid items */
+    grid-template-columns: repeat(4, 1fr); /* 3 columns of equal width */
+    gap: 15px; /* Spacing between grid items */
     padding: 20px;
     justify-items: center; /* Center align items horizontally */
   }
   #my-listings-container{
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columns of equal width */
-    gap: 20px; /* Spacing between grid items */
+    grid-template-columns: repeat(4, 1fr); /* 3 columns of equal width */
+    gap: 15px; /* Spacing between grid items */
     padding: 20px;
     justify-items: center; /* Center align items horizontally */
   }
@@ -45,8 +46,8 @@ body {
     cursor: pointer;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     color: #333; /* Dark text for readability */
-    width: 250px; /* Consistent width for all items */
-    height: 250px; /* Consistent height for all items */
+    width: 200px; /* Consistent width for all items */
+    height: 220px; /* Consistent height for all items */
     display: flex;
     flex-direction: column; /* Stacks content vertically */
     justify-content: space-between; /* Equal spacing between content */
@@ -71,6 +72,22 @@ body {
   #next-button:hover {
     background-color: #45a049;
   }
+  /* Buttons */
+  #back-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  #back-button:hover {
+    background-color: #45a049;
+  }
+    
   
   button {
     width: 100%;

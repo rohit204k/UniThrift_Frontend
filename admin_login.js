@@ -41,7 +41,7 @@ loginForm.addEventListener('submit', async (event) => {
 
             alert('Login successful!');
             // Redirect to items.html
-            window.location.href = 'items.html'; //NEED TO CHANGE 
+            window.location.href = 'admin_analytics.html'; //NEED TO CHANGE 
         }
     } catch (error) {
         console.error('Login error:', error);
