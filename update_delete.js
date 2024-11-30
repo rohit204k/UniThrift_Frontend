@@ -87,17 +87,36 @@ function openUpdateForm(itemOrEvent) {
     // Extract necessary fields
     if (typeof itemOrEvent === 'object' && itemOrEvent !== null) {
         listingId = itemOrEvent.id || itemOrEvent._id || itemOrEvent.listing_id;
-        itemTitle = itemOrEvent.title; // Extract the title
+        itemTitle = itemOrEvent.title;
         description = itemOrEvent.description;
         price = itemOrEvent.price;
         status = itemOrEvent.status;
     }
 
     // Add input fields
-    const titleInput = createInputField('Title', itemTitle, 'text', 'Enter item title'); // New title field
+    const titleInput = createInputField('Title', itemTitle, 'text', 'Enter item title');
     const descriptionInput = createInputField('Description', description, 'text', 'Enter item description');
     const priceInput = createInputField('Price', price, 'number', 'Enter item price');
     const statusInput = createInputField('Status (AVAILABLE/ONHOLD/SOLD)', status, 'text', 'Enter item status');
+
+    // Create image upload input
+    const imageContainer = document.createElement('div');
+    imageContainer.style.marginBottom = '15px';
+
+    const imageLabel = document.createElement('label');
+    imageLabel.textContent = 'Upload Image';
+    imageLabel.style.display = 'block';
+    imageLabel.style.fontWeight = 'bold';
+    imageLabel.style.marginBottom = '5px';
+
+    const imageInput = document.createElement('input');
+    imageInput.type = 'file';
+    imageInput.accept = 'image/*';
+    imageInput.style.width = '100%';
+    imageInput.style.padding = '8px';
+
+    imageContainer.appendChild(imageLabel);
+    imageContainer.appendChild(imageInput);
 
     const saveButton = document.createElement('button');
     saveButton.textContent = 'Save';
@@ -107,9 +126,9 @@ function openUpdateForm(itemOrEvent) {
     saveButton.style.color = 'white';
     saveButton.style.border = 'none';
     saveButton.style.borderRadius = '4px';
-    saveButton.addEventListener('click', () => {
+    saveButton.addEventListener('click', async () => {
         const updatedData = {
-            title: titleInput.querySelector('input').value, // Get the new title value
+            title: titleInput.querySelector('input').value,
             description: descriptionInput.querySelector('input').value,
             price: parseFloat(priceInput.querySelector('input').value),
             status: statusInput.querySelector('input').value,
@@ -121,8 +140,52 @@ function openUpdateForm(itemOrEvent) {
             !isNaN(updatedData.price) &&
             updatedData.status
         ) {
-            updateListing(listingId, updatedData);
-            closeModal(modal, backdrop);
+            try {
+                // Update listing first
+                await updateListing(listingId, updatedData);
+
+                // Handle image upload if an image is selected
+                const imageFile = imageInput.files[0];
+                if (imageFile) {
+                    // Generate pre-signed URL for image upload
+                    const presignedUrlResponse = await fetch(`http://18.117.164.164:4001/api/v1/listing/image/generate_upload_url`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${accessToken()}`,
+                        },
+                        body: JSON.stringify({ 
+                            listing_id: listingId, 
+                            file_extension: imageFile.type.split('/')[1] 
+                        }),
+                    });
+
+                    if (presignedUrlResponse.ok) {
+                        const { data } = await presignedUrlResponse.json();
+                        const presignedUrl = data.url;
+
+                        // Upload the image using the pre-signed URL
+                        const imageUploadResponse = await fetch(presignedUrl, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/octet-stream',
+                            },
+                            body: imageFile,
+                        });
+
+                        if (!imageUploadResponse.ok) {
+                            throw new Error('Image upload failed');
+                        }
+                    } else {
+                        throw new Error('Failed to generate pre-signed URL');
+                    }
+                }
+
+                closeModal(modal, backdrop);
+            } catch (error) {
+                console.error('Error updating listing or uploading image:', error);
+                alert('An error occurred while updating the listing or uploading the image.');
+            }
         } else {
             alert('Please fill in all fields correctly.');
         }
@@ -143,10 +206,11 @@ function openUpdateForm(itemOrEvent) {
     buttonContainer.style.marginTop = '15px';
 
     modal.appendChild(title);
-    modal.appendChild(titleInput); // Append the title input
+    modal.appendChild(titleInput);
     modal.appendChild(descriptionInput);
     modal.appendChild(priceInput);
     modal.appendChild(statusInput);
+    modal.appendChild(imageContainer);
     modal.appendChild(buttonContainer);
 
     document.body.appendChild(modal);
