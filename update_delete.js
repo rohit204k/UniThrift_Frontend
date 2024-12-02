@@ -60,6 +60,7 @@ function createModalBackdrop() {
 }
 
 // Function to open update form in a popup
+// Function to open update form in a popup
 function openUpdateForm(itemOrEvent) {
     const backdrop = createModalBackdrop();
     document.body.appendChild(backdrop);
@@ -84,7 +85,6 @@ function openUpdateForm(itemOrEvent) {
 
     let listingId, itemTitle, description, price, status;
 
-    // Extract necessary fields
     if (typeof itemOrEvent === 'object' && itemOrEvent !== null) {
         listingId = itemOrEvent.id || itemOrEvent._id || itemOrEvent.listing_id;
         itemTitle = itemOrEvent.title;
@@ -93,18 +93,17 @@ function openUpdateForm(itemOrEvent) {
         status = itemOrEvent.status;
     }
 
-    // Add input fields
     const titleInput = createInputField('Title', itemTitle, 'text', 'Enter item title');
     const descriptionInput = createInputField('Description', description, 'text', 'Enter item description');
     const priceInput = createInputField('Price', price, 'number', 'Enter item price');
     const statusInput = createInputField('Status (AVAILABLE/ONHOLD/SOLD)', status, 'text', 'Enter item status');
 
-    // Create image upload input
+    // Create multiple image upload input
     const imageContainer = document.createElement('div');
     imageContainer.style.marginBottom = '15px';
 
     const imageLabel = document.createElement('label');
-    imageLabel.textContent = 'Upload Image';
+    imageLabel.textContent = 'Upload Images';
     imageLabel.style.display = 'block';
     imageLabel.style.fontWeight = 'bold';
     imageLabel.style.marginBottom = '5px';
@@ -112,6 +111,7 @@ function openUpdateForm(itemOrEvent) {
     const imageInput = document.createElement('input');
     imageInput.type = 'file';
     imageInput.accept = 'image/*';
+    imageInput.multiple = true; // Allow multiple file selection
     imageInput.style.width = '100%';
     imageInput.style.padding = '8px';
 
@@ -126,6 +126,7 @@ function openUpdateForm(itemOrEvent) {
     saveButton.style.color = 'white';
     saveButton.style.border = 'none';
     saveButton.style.borderRadius = '4px';
+
     saveButton.addEventListener('click', async () => {
         const updatedData = {
             title: titleInput.querySelector('input').value,
@@ -141,50 +142,53 @@ function openUpdateForm(itemOrEvent) {
             updatedData.status
         ) {
             try {
-                // Update listing first
                 await updateListing(listingId, updatedData);
 
-                // Handle image upload if an image is selected
-                const imageFile = imageInput.files[0];
-                if (imageFile) {
-                    // Generate pre-signed URL for image upload
-                    const presignedUrlResponse = await fetch(`http://18.117.164.164:4001/api/v1/listing/image/generate_upload_url`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${accessToken()}`,
-                        },
-                        body: JSON.stringify({ 
-                            listing_id: listingId, 
-                            file_extension: imageFile.type.split('/')[1] 
-                        }),
-                    });
+                const imageFiles = imageInput.files;
+                if (imageFiles.length > 0) {
+                    for (let i = 0; i < imageFiles.length; i++) {
+                        const imageFile = imageFiles[i];
 
-                    if (presignedUrlResponse.ok) {
-                        const { data } = await presignedUrlResponse.json();
-                        const presignedUrl = data.url;
+                        const presignedUrlResponse = await fetch(
+                            `http://18.117.164.164:4001/api/v1/listing/image/generate_upload_url`,
+                            {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${accessToken()}`,
+                                },
+                                body: JSON.stringify({
+                                    listing_id: listingId,
+                                    file_extension: imageFile.type.split('/')[1],
+                                }),
+                            }
+                        );
 
-                        // Upload the image using the pre-signed URL
-                        const imageUploadResponse = await fetch(presignedUrl, {
-                            method: 'PUT',
-                            headers: {
-                                'Content-Type': 'application/octet-stream',
-                            },
-                            body: imageFile,
-                        });
+                        if (presignedUrlResponse.ok) {
+                            const { data } = await presignedUrlResponse.json();
+                            const presignedUrl = data.url;
 
-                        if (!imageUploadResponse.ok) {
-                            throw new Error('Image upload failed');
+                            const imageUploadResponse = await fetch(presignedUrl, {
+                                method: 'PUT',
+                                headers: {
+                                    'Content-Type': 'application/octet-stream',
+                                },
+                                body: imageFile,
+                            });
+
+                            if (!imageUploadResponse.ok) {
+                                throw new Error(`Image upload failed for file: ${imageFile.name}`);
+                            }
+                        } else {
+                            throw new Error('Failed to generate pre-signed URL');
                         }
-                    } else {
-                        throw new Error('Failed to generate pre-signed URL');
                     }
                 }
 
                 closeModal(modal, backdrop);
             } catch (error) {
-                console.error('Error updating listing or uploading image:', error);
-                alert('An error occurred while updating the listing or uploading the image.');
+                console.error('Error updating listing or uploading images:', error);
+                alert('An error occurred while updating the listing or uploading the images.');
             }
         } else {
             alert('Please fill in all fields correctly.');
@@ -215,6 +219,7 @@ function openUpdateForm(itemOrEvent) {
 
     document.body.appendChild(modal);
 }
+
 
 function showDeleteConfirmation(item) {
     // Initialize variables

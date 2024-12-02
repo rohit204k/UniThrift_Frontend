@@ -223,19 +223,6 @@ body {
     background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent dark background */
   }
 
-.create-listing-button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.create-listing-button:hover {
-  background-color: #45a049;
-}
 html, body {
   height: 100%;
   margin: 0;
@@ -278,10 +265,13 @@ body {
 }
 
 .main-content {
-  flex-grow: 1;
-  padding: 20px;
-  overflow-y: auto;
-  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.5); /* Background for the content area */
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+  margin: 0 auto; /* Center the content area */
+  width:100%;/* Set a max width for the content area */
 }
 
 .container {
@@ -290,4 +280,118 @@ body {
   background-color: rgba(0, 0, 0, 0.5);
   padding: 20px;
   border-radius: 10px;
+}
+
+/* History Content Area */
+
+.history-content-area {
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.5); /* Background for the content area */
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+  margin: 0 auto; /* Center the content area */
+  width:100%;/* Set a max width for the content area */
+}
+
+/* History Container Styles */
+.history-container {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+  margin-top: 10px; /* Space from the top */
+  width:100%;
+}
+
+/* Centered Buttons */
+.history-buttons {
+  display: flex;
+  justify-content: center; /* Center buttons */
+  margin: 20px 0; /* Margin for spacing */
+}
+
+.history-button {
+  margin: 0 10px; /* Space buttons evenly */
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4CAF50; /* Green background */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+/* Active state for the buttons */
+.history-button.active {
+  background-color: #125a16; /* Darker background for active button */
+  color: #fff; /* Change text color to white for visibility */
+}
+.history-button:hover {
+  background-color: #125a16; /* Darker green on hover */
+}
+/* Item List Styles */
+.item-list {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+  width: 100%; /* Full width */
+  padding-left: 750px; /* Add padding for spacing */
+}
+/* Style for each item */
+.item {
+  background-color: rgb(255, 255, 255); /* Background color for items */
+  color: black; /* Text color for items */
+  padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
+  width: 80%; /* Adjust width for items */
+  text-align: center; /* Center text inside items */
+}
+
+/* Individual Item Box Styles */
+.item-box {
+  background-color: #fff; /* White background for item box */
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 8px; /* Rounded corners */
+  padding: 15px; /* Padding inside the box */
+  margin: 10px 0; /* Space between items */
+  width: 100%; /* Full width of the parent */
+  max-width: 600px; /* Max width for the item box */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Example text styling for items */
+.item-title {
+  font-size: 18px; /* Title font size */
+  font-weight: bold; /* Bold title */
+  margin-bottom: 5px; /* Space below title */
+}
+
+.item-description {
+  font-size: 14px; /* Description font size */
+  color: #555; /* Gray color for description */
+}
+/* Individual Item Card Styles */
+.item-card {
+  background-color: #fff; /* White background for item box */
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 8px; /* Rounded corners */
+  margin: 10px 0; /* Space between items */
+  width: 100%; /* Full width of the parent */
+  max-width: 700px; /* Max width for the item box */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Title and Price Styles */
+.item-card h3 {
+  font-size: 18px; /* Title font size */
+  font-weight: bold; /* Bold title */
+  margin-bottom: 5px; /* Space below title */
+  color: #333
+}
+
+.item-card p {
+  font-size: 14px; /* Price font size */
+  color: #333; /* Darker color for price */
+  margin: 0; /* Remove default margin */
 }
