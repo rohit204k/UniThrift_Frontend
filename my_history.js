@@ -44,7 +44,53 @@ async function makeApiRequest(url, method, data = null, token = null) {
   }
 }
 
-// Function to display bought items
+// Function to fetch and display details of a specific item
+async function fetchItemDetails(listingId) {
+  try {
+    const apiUrl = `http://18.117.164.164:4001/api/v1/history/get_listing_details/${listingId}`;
+    const token = accessToken();
+
+    if (!token) {
+      throw new Error('Access token is missing or invalid.');
+    }
+
+    const response = await makeApiRequest(apiUrl, 'GET', null, token);
+    
+    if (response && response.status === 'SUCCESS' && response.data) {
+      displayItemDetails(response.data);
+    } else {
+      console.error('Failed to fetch item details.');
+    }
+  } catch (error) {
+    console.error('Error fetching item details:', error);
+  }
+}
+
+// Function to display item details in a popup
+function displayItemDetails(item) {
+  const titleElement = document.getElementById('popup-title');
+  const priceElement = document.getElementById('popup-price');
+  const descriptionElement = document.getElementById('popup-description');
+  const sellerNameElement = document.getElementById('seller-name');
+  const buyerNameElement = document.getElementById('buyer-name'); // Ensure this ID matches the HTML
+  const buyerCommentsElement = document.getElementById('buyer-comments');
+
+  titleElement.textContent = item.title;
+  priceElement.textContent = `Price: $${item.price}`;
+  descriptionElement.textContent = item.description;
+  sellerNameElement.textContent = item.seller_name;
+  buyerNameElement.textContent = item.buyer_name; // Display buyer's name
+  buyerCommentsElement.textContent = item.buyer_comments; // Display buyer comments
+
+  document.getElementById('item-popup').style.display = 'flex'; // Show the popup
+}
+
+// Function to close the popup
+function closePopup() {
+  document.getElementById('item-popup').style.display = 'none';
+}
+
+// Update item display functions to include click events
 function displayBoughtItems(items) {
   boughtItemsList.innerHTML = '';
 
@@ -61,11 +107,15 @@ function displayBoughtItems(items) {
     itemElement.appendChild(titleElement);
     itemElement.appendChild(priceElement);
 
+    // Add click event listener
+    itemElement.addEventListener('click', () => {
+      fetchItemDetails(item._id); // Ensure item.id is valid
+    });
+
     boughtItemsList.appendChild(itemElement);
   });
 }
 
-// Function to display sold items
 function displaySoldItems(items) {
   soldItemsList.innerHTML = '';
 
@@ -81,6 +131,11 @@ function displaySoldItems(items) {
 
     itemElement.appendChild(titleElement);
     itemElement.appendChild(priceElement);
+
+    // Add click event listener
+    itemElement.addEventListener('click', () => {
+      fetchItemDetails(item._id); // Ensure item.id is valid
+    });
 
     soldItemsList.appendChild(itemElement);
   });

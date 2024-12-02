@@ -51,7 +51,6 @@ function displayItemDetails(item) {
     <p><strong>Description:</strong> ${item.description}</p>
     <p><strong>Price:</strong> $${item.price}</p>
     <p><strong>Status:</strong> ${item.status}</p>
-    <p><strong>Seller ID:</strong> ${item.seller_id}</p>
     <div class="product-images">${imageHtml}</div>
   `;
 }
