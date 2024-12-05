@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Profile</title>
+    <link rel="stylesheet" href="update_user.css"> <!-- Link to the new CSS file -->
+</head>
+<body>
+    <!-- Navigation Panel -->
+    <div class="navigation-panel">
+        <button onclick="window.location.href='items.html'">All Available Listings</button>
+        <button onclick="window.location.href='my_listings.html'">My Listings</button>
+        <button onclick="window.location.href='interested_items.html'">Interested Items History</button>
+        <button onclick="window.location.href='create_listing.html'">Create Item Listing</button>
+        <button onclick="window.location.href='my_history.html'">History</button>
+        <button onclick="window.location.href='update_user.html'">Update Profile</button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Update Your Profile</h1>
+        <form id="update-form">
+            <label for="first-name">First Name</label>
+            <input type="text" id="first-name" name="first-name" required>
+            <button type="button" id="update-first-name-btn" class="small-button">Update First Name</button>
+
+            <label for="last-name">Last Name</label>
+            <input type="text" id="last-name" name="last-name" required>
+            <button type="button" id="update-last-name-btn" class="small-button">Update Last Name</button>
+
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" required>
+            <button type="button" id="update-phone-btn" class="small-button">Update Phone</button>
+
+            <label for="address">Address</label>
+            <input type="text" id="address" name="address" required>
+            <button type="button" id="update-address-btn" class="small-button">Update Address</button>
+
+            <button type="submit">Update All Details</button>
+            <p id="error-message" style="display: none;"></p>
+        </form>
+
+        <button id="back-button" onclick="window.location.href='items.html'">Back to Items</button>
+    </div>
+
+    <script src="update_user.js"></script>
+</body>
+</html>
