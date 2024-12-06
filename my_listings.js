@@ -76,9 +76,9 @@ function displayUserListings(listings) {
       const itemDiv = document.createElement('div');
       itemDiv.className = 'item';
       itemDiv.innerHTML = `
-        <h2>${item.title}</h2>
-        <p><strong>Price:</strong> $${item.price}</p>
-        <p><strong>Status:</strong> ${item.status}</p>
+          <div class="item-title">${item.title}</div>
+          <div class="item-status">Status: ${item.status}</div>
+          <div class="item-price">Price: $${item.price}</div>
       `;
 
       // Make each item clickable and redirect to the details page
@@ -93,7 +93,6 @@ function displayUserListings(listings) {
     myListingsContainer.innerHTML = '<p>You have no listings to display.</p>';
   }
 }
-
 // Render update and delete buttons for the user’s listings
 function renderItemActions(item, itemDiv) {
   // Extract user ID from the access token

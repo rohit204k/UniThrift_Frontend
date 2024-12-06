@@ -30,6 +30,7 @@ body {
     padding: 20px;
     justify-items: center; /* Center align items horizontally */
   }
+
   #my-listings-container{
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 3 columns of equal width */

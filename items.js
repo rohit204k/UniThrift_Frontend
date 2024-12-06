@@ -73,31 +73,26 @@ async function fetchAllItems() {
 
 // Display items for the current page
 function displayItemsForCurrentPage(allItems) {
-  // Calculate start and end indices for the current page
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const pageItems = allItems.slice(startIndex, endIndex);
 
-  // Clear current items
   itemListContainer.innerHTML = '';
 
-  // Display items for current page
   pageItems.forEach(item => {
-    const itemDiv = document.createElement('div');
-    itemDiv.className = 'item';
-    itemDiv.innerHTML = `
-      <h2>${item.title}</h2>
-      <p><strong>Price:</strong> $${item.price}</p>
-      <p><strong>Status:</strong> ${item.status}</p>
-    `;
+      const itemDiv = document.createElement('div');
+      itemDiv.className = 'item';
+      itemDiv.innerHTML = `
+          <div class="item-title">${item.title}</div>
+          <div class="item-status">Status: ${item.status}</div>
+          <div class="item-price">Price: $${item.price}</div>
+      `;
 
-    // Make each item clickable and redirect to the details page
-    itemDiv.addEventListener('click', () => {
-      window.location.href = `item_details.html?itemId=${item._id}`;
-    });
-
-    renderItemActions(item, itemDiv); // Add update/delete buttons if applicable
-    itemListContainer.appendChild(itemDiv);
+      itemDiv.addEventListener('click', () => {
+          window.location.href = `item_details.html?itemId=${item._id}`;
+      });
+      renderItemActions(item, itemDiv);
+      itemListContainer.appendChild(itemDiv);
   });
 }
 
@@ -140,22 +135,37 @@ function hideAllButtons() {
   backButton.style.display = 'none';
 }
 
-// Event listener for the "Next" button
+// Save the current page to localStorage
+function saveCurrentPageToLocalStorage() {
+  localStorage.setItem('currentPage', currentPage);
+}
+
+// Load the current page from localStorage
+function loadCurrentPageFromLocalStorage() {
+  const page = parseInt(localStorage.getItem('currentPage'), 10);
+  return page > 0 ? page : 1; // Default to page 1 if not found or invalid
+}
+
+// Update the event listeners to save the page to localStorage
 nextButton.addEventListener('click', () => {
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   if (currentPage < totalPages) {
     currentPage++;
+    saveCurrentPageToLocalStorage();
     renderItems();
   }
 });
 
-// Event listener for the "Back" button
 backButton.addEventListener('click', () => {
   if (currentPage > 1) {
     currentPage--;
+    saveCurrentPageToLocalStorage();
     renderItems();
   }
 });
+
+// On initial load
+currentPage = loadCurrentPageFromLocalStorage();
 
 // Initial page load
 renderItems();
