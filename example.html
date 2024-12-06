@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background Repeat Test</title>
+    <style>
+        /* body {
+            font-family: Arial, sans-serif;
+            background-image: url('TEMPLATES/homelisting.jpg');
+            background-size: auto; 
+            background-position: top center; 
+            background-repeat: repeat; 
+            min-height: 200vh;
+            margin: 0;
+            color: #fff;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+        } */
+        body {
+    font-family: Arial, sans-serif;
+    background-image: url('TEMPLATES/homelisting.jpg'); /* Relative path to the image */
+    background-size: auto; /* Stretch the image to cover the entire screen */
+    /* background-size: cover; */
+    background-position: top center; /* Center the image */
+    /* background-position: center; */
+    background-repeat: repeat; /*  repeating */
+    /* background-repeat: no-repeat; */
+    height: 100vh; /* Ensure the background covers the full viewport height */
+    margin: 0;
+    padding: 0;
+    color: #fff; /* White text for readability */
+  }
+  
+  /* Central Container */
+  .container {
+    max-width: 2500px;
+    
+    /* max-height: 2000px; */
+    margin: auto;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Background Repeat Test</h1>
+        <p>Scroll down to see the background image repeat.</p>
+        <div style="height: 2000px;"></div> <!-- Extra height for scrolling -->
+    </div>
+</body>
+</html>

@@ -82,9 +82,14 @@ function displayUserListings(listings) {
       `;
 
       // Make each item clickable and redirect to the details page
+      // itemDiv.addEventListener('click', () => {
+      //   window.location.href = `item_details.html?itemId=${item._id}`;
+      // });
+
       itemDiv.addEventListener('click', () => {
-        window.location.href = `item_details.html?itemId=${item._id}`;
+        window.location.href = `get_interested_listings_seller.html?listingID=${item._id}`;
       });
+
 
       renderItemActions(item, itemDiv); // Add update/delete buttons if applicable
       myListingsContainer.appendChild(itemDiv);

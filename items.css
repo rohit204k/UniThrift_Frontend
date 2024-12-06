@@ -4,8 +4,8 @@ body {
     background-image: url('TEMPLATES/homelisting.jpg'); /* Relative path to the image */
     background-size: cover; /* Stretch the image to cover the entire screen */
     background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Prevent repeating */
-    height: 100vh; /* Ensure the background covers the full viewport height */
+    background-repeat: no-repeat; /*  repeating */
+    min-height: 100vh; /* Ensure the background covers the full viewport height */
     margin: 0;
     padding: 0;
     color: #fff; /* White text for readability */
@@ -14,7 +14,7 @@ body {
   /* Central Container */
   .container {
     max-width: 2500px;
-    max-height: 2000px;
+    /* max-height: 2000px; */
     margin: auto;
     background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black background */
     padding: 20px;
@@ -441,4 +441,28 @@ p {
 
 .close-button:hover {
   color: #333; /* Darker gray on hover for visibility */
+}
+
+/* buttons for my listings - seller */
+.listing {
+  margin-bottom: 20px; /* Space between listings */
+}
+
+.button-container {
+  display: flex; /* Use flexbox for horizontal alignment */
+  justify-content: flex-start; /* Align buttons to the left */
+  gap: 10px; /* Space between buttons */
+}
+
+.button-container button {
+  padding: 8px 12px; /* Add some padding for a better look */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Rounded corners */
+  background-color: #007BFF; /* Bootstrap-like blue color */
+  color: white; /* White text */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+.button-container button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
 }
