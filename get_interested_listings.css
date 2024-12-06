@@ -1,0 +1,32 @@
+/* white-font.css */
+
+/* Change all text color to white */
+body {
+    color: white; /* Set default text color to white */
+}
+
+/* Override specific element colors if needed */
+h1, h2, h3, p {
+    color: white; /* Ensure headings and paragraphs are also white */
+}
+
+/* Specific styles for buttons to enhance visibility */
+button {
+    color: white; /* White text for buttons */
+}
+
+/* Adjust text color for item titles and descriptions */
+.item-title, .item-description {
+    color: white; /* White color for item titles and descriptions */
+}
+
+/* Ensure the modal text is also white */
+.modal {
+    color: white; /* White text color for modal */
+}
+/* Completely hide the button */
+#mark-interested-button {
+    display: none; /* Ensure it is not displayed */
+    visibility: hidden; /* Prevent it from taking up space */
+}
+/* Additional styles can be added as needed */

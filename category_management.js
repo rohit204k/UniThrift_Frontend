@@ -1,6 +1,4 @@
-// Access token for API authentication
-const getAccessToken = () => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjc0MGMxZTRlZDYyNmYxMTM3MjhmYjNmIiwidXNlcl90eXBlIjoiU1RVREVOVCIsInRva2VuX3R5cGUiOiJiZWFyZXIiLCJpYXQiOjE3MzI3NTExMjcsImV4cCI6MTczMjgzNzUyN30.OGE5wrAQP5yyyyNWSkNUg3o5hZm00a9GGTCKLcpkIMA";
-const accessToken = () => localStorage.getItem('accessToken');
+const getAccessToken = () => localStorage.getItem('accessToken');
 
 // Get the necessary DOM elements
 const addCategoryButton = document.getElementById("add-category-button");

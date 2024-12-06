@@ -4,45 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Category Management</title>
-    <link rel="stylesheet" href="category_management.css"> <!-- Link to the CSS file -->
+    <link rel="stylesheet" href="category_management.css">
 </head>
 <body>
-    <div class="header">
-        <h2>Categories</h2>
-        <button id="add-category-button" class="add-category-button">Add Category</button>
+    <!-- Navigation Panel -->
+    <div class="sidebar">
+        <ul>
+            <li><a href="admin_analytics.html">Admin Analytics</a></li>
+            <li><a href="category_management.html">All Categories</a></li>
+            <li><a href="all_students.html">All Students</a></li>
+            <li><a href="all_listings.html">All Listings</a></li>  
+        </ul>
     </div>
 
-    <!-- Category Add/Edit Dialog Box -->
-    <div id="category-dialog" class="dialog">
-        <div class="dialog-content">
-            <h2 id="dialog-title">Add New Category</h2>
-            <form id="category-form">
-                <label for="category-name">Category Name:</label>
-                <input type="text" id="category-name" name="category-name" required>
-                <label for="category-description">Category Description:</label>
-                <input type="text" id="category-description" name="category-description" required>
-                <div class="dialog-buttons">
-                    <button type="submit" id="submit-button">Submit</button>
-                    <button type="button" id="cancel-button">Cancel</button>
-                </div>
-            </form>
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <div class="header">
+            <h2>Categories</h2>
+            <button id="add-category-button" class="add-category-button">Add Category</button>
+        </div>
+
+        <!-- Category Add/Edit Dialog Box -->
+        <div id="category-dialog" class="dialog">
+            <div class="dialog-content">
+                <h2 id="dialog-title">Add New Category</h2>
+                <form id="category-form">
+                    <label for="category-name">Category Name:</label>
+                    <input type="text" id="category-name" name="category-name" required>
+                    <label for="category-description">Category Description:</label>
+                    <input type="text" id="category-description" name="category-description" required>
+                    <div class="dialog-buttons">
+                        <button type="submit" id="submit-button">Submit</button>
+                        <button type="button" id="cancel-button">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Category List -->
+        <div id="category-list">
+            <ul id="categories"></ul>
         </div>
     </div>
-    <!-- <div class="search-bar">
-        <input type="text" id="search-input" placeholder="Search category by ID" />
-        <button id="search-button">Search</button>
-    </div> -->
-    <div>
-        <input id="search-box" type="text" placeholder="Enter category ID">
-        <button id="search-btn">Search</button>
-    </div>
-    <div id="results"></div>
-    
-    <!-- Category List -->
-    <div id="category-list">
-        <ul id="categories"></ul>
-    </div>
 
-    <script src="category_management.js"></script> <!-- Link to the JS file -->
+    <script src="category_management.js"></script>
 </body>
 </html>

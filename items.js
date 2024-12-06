@@ -8,7 +8,7 @@ const backButton = document.getElementById('back-button');
 
 // Variables to handle pagination
 let currentPage = 1;
-const itemsPerPage = 6;
+const itemsPerPage = 8;
 let totalItems = 0;
 
 // Make API request function
