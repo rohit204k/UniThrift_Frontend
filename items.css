@@ -87,6 +87,36 @@ body {
   #back-button:hover {
     background-color: #45a049;
   }
+    /* Buttons */
+    #my-next-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    #my-next-button:hover {
+      background-color: #45a049;
+    }
+    /* Buttons */
+    #my-back-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    #my-back-button:hover {
+      background-color: #45a049;
+    }
     
   
   button {
@@ -252,7 +282,7 @@ body {
   width: 100%;
   padding: 10px;
   margin-bottom: 10px;
-  background-color: #4CAF50;
+  background-color: #537b9a;
   color: white;
   border: none;
   border-radius: 5px;
@@ -261,7 +291,7 @@ body {
 }
 
 .navigation-panel button:hover {
-  background-color: #45a049;
+  background-color: #3f6f94;
 }
 
 .main-content {
