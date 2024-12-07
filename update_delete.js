@@ -96,7 +96,35 @@ function openUpdateForm(itemOrEvent) {
     const titleInput = createInputField('Title', itemTitle, 'text', 'Enter item title');
     const descriptionInput = createInputField('Description', description, 'text', 'Enter item description');
     const priceInput = createInputField('Price', price, 'number', 'Enter item price');
-    const statusInput = createInputField('Status (AVAILABLE/ONHOLD/SOLD)', status, 'text', 'Enter item status');
+    // const statusInput = createInputField('Status (AVAILABLE/ONHOLD/SOLD)', status, 'text', 'Enter item status');
+    // Create a dropdown for status
+    const statusContainer = document.createElement('div');
+    statusContainer.style.marginBottom = '15px';
+
+    const statusLabel = document.createElement('label');
+    statusLabel.textContent = 'Status';
+    statusLabel.style.display = 'block';
+    statusLabel.style.fontWeight = 'bold';
+    statusLabel.style.marginBottom = '5px';
+
+    const statusSelect = document.createElement('select');
+    statusSelect.style.width = '100%';
+    statusSelect.style.padding = '8px';
+    statusSelect.style.border = '1px solid #ccc';
+    statusSelect.style.borderRadius = '4px';
+
+    // Add dropdown options 
+    const statuses = ['NEW', 'ON_HOLD'];
+    statuses.forEach((statusOption) => {
+        const option = document.createElement('option');
+        option.value = statusOption;
+        option.textContent = statusOption;
+        if (status === statusOption) option.selected = true; // Pre-select the current status
+        statusSelect.appendChild(option);
+    });
+
+    statusContainer.appendChild(statusLabel);
+    statusContainer.appendChild(statusSelect);
 
     // Create multiple image upload input
     const imageContainer = document.createElement('div');
@@ -132,7 +160,8 @@ function openUpdateForm(itemOrEvent) {
             title: titleInput.querySelector('input').value,
             description: descriptionInput.querySelector('input').value,
             price: parseFloat(priceInput.querySelector('input').value),
-            status: statusInput.querySelector('input').value,
+            // changed status: statusInput.querySelector('input').value,
+            status: statusSelect.value,
         };
 
         if (
@@ -213,7 +242,7 @@ function openUpdateForm(itemOrEvent) {
     modal.appendChild(titleInput);
     modal.appendChild(descriptionInput);
     modal.appendChild(priceInput);
-    modal.appendChild(statusInput);
+    modal.appendChild(statusContainer);
     modal.appendChild(imageContainer);
     modal.appendChild(buttonContainer);
 

@@ -76,20 +76,15 @@ function displayUserListings(listings) {
       const itemDiv = document.createElement('div');
       itemDiv.className = 'item';
       itemDiv.innerHTML = `
-        <h2>${item.title}</h2>
-        <p><strong>Price:</strong> $${item.price}</p>
-        <p><strong>Status:</strong> ${item.status}</p>
+          <div class="item-title">${item.title}</div>
+          <div class="item-status">Status: ${item.status}</div>
+          <div class="item-price">Price: $${item.price}</div>
       `;
 
       // Make each item clickable and redirect to the details page
-      // itemDiv.addEventListener('click', () => {
-      //   window.location.href = `item_details.html?itemId=${item._id}`;
-      // });
-
       itemDiv.addEventListener('click', () => {
         window.location.href = `get_interested_listings_seller.html?listingID=${item._id}`;
       });
-
 
       renderItemActions(item, itemDiv); // Add update/delete buttons if applicable
       myListingsContainer.appendChild(itemDiv);
