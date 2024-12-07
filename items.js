@@ -129,12 +129,25 @@ async function renderItems() {
   }
 }
 
+function logout() {
+  // Clear all items from local storage
+  localStorage.clear();
+
+  // Redirect to index.html
+  window.location.href = 'index.html';
+}
+
+// Event listener for the logout link
+document.getElementById('logout-link').addEventListener('click', (event) => {
+  event.preventDefault(); // Prevent the default link behavior
+  logout(); // Call the logout function
+});
+
 // Hide all pagination buttons
 function hideAllButtons() {
   nextButton.style.display = 'none';
   backButton.style.display = 'none';
 }
-
 // Save the current page to localStorage
 function saveCurrentPageToLocalStorage() {
   localStorage.setItem('currentPage', currentPage);
@@ -147,6 +160,7 @@ function loadCurrentPageFromLocalStorage() {
 }
 
 // Update the event listeners to save the page to localStorage
+// Event listener for the "Next" button
 nextButton.addEventListener('click', () => {
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   if (currentPage < totalPages) {
@@ -156,6 +170,7 @@ nextButton.addEventListener('click', () => {
   }
 });
 
+// Event listener for the "Back" button
 backButton.addEventListener('click', () => {
   if (currentPage > 1) {
     currentPage--;
@@ -166,6 +181,5 @@ backButton.addEventListener('click', () => {
 
 // On initial load
 currentPage = loadCurrentPageFromLocalStorage();
-
 // Initial page load
 renderItems();

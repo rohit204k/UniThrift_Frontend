@@ -60,7 +60,7 @@ function displayInterestedListings(items) {
       .map(
         (item) => `
         <div class="interested-item-container">
-          <h2>Listing ID: ${item.listing_id || 'N/A'}</h2>
+          <h2> ${item.title || 'N/A'}</h2>
           <p><strong>Comment:</strong> ${item.comments || 'No comments available.'}</p>
           <p><strong>Status:</strong> ${item.status || 'Unknown'}</p>
           <div class="interested-item-actions">
@@ -76,6 +76,21 @@ function viewDetails(listingId) {
 // Redirect to the new page, passing the listing ID as a query parameter
 window.location.href = `get_interested_listings.html?listing_id=${listingId}`;
 }
+
+function logout() {
+  // Clear all items from local storage
+  localStorage.clear();
+
+  // Redirect to index.html
+  window.location.href = 'index.html';
+}
+
+// Event listener for the logout link
+document.getElementById('logout-link').addEventListener('click', (event) => {
+  event.preventDefault(); // Prevent the default link behavior
+  logout(); // Call the logout function
+});
+
 // Call the API to fetch interested listings
 fetchInterestedListings();
 /* <p><strong>Created At:</strong> ${new Date(item.created_at).toLocaleString()}</p>

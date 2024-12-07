@@ -58,18 +58,27 @@ body {
 }
 
 /* Header styles */
-.header {
+/* .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+} */
+.header {
+    display: flex;
+    justify-content: space-between; /* Space out elements */
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative; /* Relative positioning to control child elements */
+}
+.header-buttons {
+    display: flex; /* Use flexbox for button alignment */
+    align-items: center; /* Vertically align items */
 }
 
 /* Button to add category */
+
 .add-category-button {
-    position: absolute; /* Position the button absolutely */
-    top: 20px; /* Align it with the top padding */
-    right: 20px; /* Align it with the right padding */
     background-color: #4CAF50;
     color: white;
     padding: 10px 20px;
@@ -77,7 +86,7 @@ body {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    z-index: 10; /* Ensure the button stays on top */
+    margin-right: 100px; /* Add some space between the button and the profile */
 }
 
 /* Style for the dialog box */
@@ -195,4 +204,43 @@ h2 {
 
 .action-buttons .delete {
     background-color: #f44336;
+}
+
+
+.profile-container {
+    position: absolute; /* Absolute positioning for top right corner */
+    top: 3px; /* Distance from the top */
+    right: 20px; /* Distance from the right */
+    z-index: 10; /* Ensure it appears above other elements */
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.profile-logo {
+    width: 60px; /* Adjust the size of the profile logo */
+    height: 60px; /* Adjust the size of the profile logo */
+    border-radius: 50%; /* Make it circular */
+    cursor: pointer; /* Change cursor on hover */
+    border: 2px solid #fff; /* Optional: White border */
 }

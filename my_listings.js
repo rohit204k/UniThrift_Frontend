@@ -82,9 +82,14 @@ function displayUserListings(listings) {
       `;
 
       // Make each item clickable and redirect to the details page
+      // itemDiv.addEventListener('click', () => {
+      //   window.location.href = `item_details.html?itemId=${item._id}`;
+      // });
+
       itemDiv.addEventListener('click', () => {
-        window.location.href = `item_details.html?itemId=${item._id}`;
+        window.location.href = `get_interested_listings_seller.html?listingID=${item._id}`;
       });
+
 
       renderItemActions(item, itemDiv); // Add update/delete buttons if applicable
       myListingsContainer.appendChild(itemDiv);
@@ -93,6 +98,7 @@ function displayUserListings(listings) {
     myListingsContainer.innerHTML = '<p>You have no listings to display.</p>';
   }
 }
+
 // Render update and delete buttons for the user’s listings
 function renderItemActions(item, itemDiv) {
   // Extract user ID from the access token
@@ -136,6 +142,18 @@ function renderItemActions(item, itemDiv) {
     itemDiv.appendChild(actionsDiv);
   }
 }
+function logout() {
+  // Clear all items from local storage
+  localStorage.clear();
 
+  // Redirect to index.html
+  window.location.href = 'index.html';
+}
+
+// Event listener for the logout link
+document.getElementById('logout-link').addEventListener('click', (event) => {
+  event.preventDefault(); // Prevent the default link behavior
+  logout(); // Call the logout function
+});
 // Initial page load
 fetchUserListings();

@@ -4,8 +4,8 @@ body {
     background-image: url('TEMPLATES/homelisting.jpg'); /* Relative path to the image */
     background-size: cover; /* Stretch the image to cover the entire screen */
     background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Prevent repeating */
-    height: 100vh; /* Ensure the background covers the full viewport height */
+    background-repeat: no-repeat; /*  repeating */
+    min-height: 100vh; /* Ensure the background covers the full viewport height */
     margin: 0;
     padding: 0;
     color: #fff; /* White text for readability */
@@ -14,7 +14,7 @@ body {
   /* Central Container */
   .container {
     max-width: 2500px;
-    max-height: 2000px;
+    /* max-height: 2000px; */
     margin: auto;
     background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black background */
     padding: 20px;
@@ -30,7 +30,6 @@ body {
     padding: 20px;
     justify-items: center; /* Center align items horizontally */
   }
-
   #my-listings-container{
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 3 columns of equal width */
@@ -442,4 +441,69 @@ p {
 
 .close-button:hover {
   color: #333; /* Darker gray on hover for visibility */
+}
+
+/* buttons for my listings - seller */
+.listing {
+  margin-bottom: 20px; /* Space between listings */
+}
+
+.button-container {
+  display: flex; /* Use flexbox for horizontal alignment */
+  justify-content: flex-start; /* Align buttons to the left */
+  gap: 10px; /* Space between buttons */
+}
+
+.button-container button {
+  padding: 8px 12px; /* Add some padding for a better look */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Rounded corners */
+  background-color: #007BFF; /* Bootstrap-like blue color */
+  color: white; /* White text */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+.button-container button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Profile Logo */
+.profile-container {
+  position: fixed; /* Position fixed to the viewport */
+  top: 20px; /* Distance from the top of the page */
+  right: 20px; /* Distance from the right of the page */
+}
+
+.profile-logo {
+  width: 60px; /* Adjust size as necessary */
+  height: 60px; /* Adjust size as necessary */
+  border-radius: 50%; /* Make it circular */
+  cursor: pointer; /* Change cursor to pointer */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Optional shadow */
+}
+
+.dropdown {
+  display: none; /* Hidden by default */
+  position: absolute; /* Position it absolutely within the container */
+  top: 50px; /* Adjust based on logo size */
+  right: 0; /* Align to the right of the profile container */
+  background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Optional shadow */
+  z-index: 1000; /* Ensure it appears above other content */
+}
+
+.profile-container:hover .dropdown {
+  display: block; /* Show dropdown on hover */
+}
+
+.dropdown a {
+  display: block; /* Stack links vertically */
+  padding: 10px; /* Spacing */
+  color: white; /* Text color */
+  text-decoration: none; /* Remove underline */
+}
+
+.dropdown a:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Highlight on hover */
 }

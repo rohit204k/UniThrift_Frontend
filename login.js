@@ -39,6 +39,9 @@ loginForm.addEventListener('submit', async (event) => {
             const accessToken = response.data.access_token;
             localStorage.setItem('accessToken', accessToken);
 
+            const userId = response.data.user_id; // Extract user_id from response
+            localStorage.setItem('userId', userId); // Store user_id in localStorage
+
             alert('Login successful!');
             // Redirect to items.html
             window.location.href = 'items.html';
@@ -53,4 +56,8 @@ loginForm.addEventListener('submit', async (event) => {
 // Retrieve token for use in items.js (example function)
 function getAccessToken() {
     return localStorage.getItem('accessToken');
+}
+
+function getUserId() {
+    return localStorage.getItem('userId');
 }

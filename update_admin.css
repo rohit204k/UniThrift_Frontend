@@ -1,7 +1,7 @@
 /* Basic Styling for the Create Listing Page */
 body {
     font-family: Arial, sans-serif;
-    background-image: url('TEMPLATES/homelisting.jpg'); /* Relative path to the image */
+    /* background-image: url('TEMPLATES/homelisting.jpg');  */
     background-size: cover; /* Stretch the image to cover the entire screen */
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Prevent repeating */
@@ -34,7 +34,8 @@ body {
   
   input[type="text"],
   input[type="number"],
-  input[type="tel"] {
+  input[type="tel"],
+  input[type="email"]{
     width: 90%;
     padding: 10px;
     margin-bottom: 10px;
@@ -43,7 +44,7 @@ body {
   }
   
   button {
-    width: 100%;
+    width: 95%;
     padding: 10px;
     background-color: #4CAF50;
     color: white;
@@ -73,7 +74,7 @@ body {
   
   body {
     display: flex;
-    background-image: url('TEMPLATES/homelisting.jpg');
+    /* background-image: url('TEMPLATES/homelisting.jpg'); */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -110,13 +111,15 @@ body {
     flex-grow: 1;
     padding: 20px;
     overflow-y: auto;
-    background-color: rgba(0, 0, 0, 0.5);
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    background-color: #f9f9f9;
   }
   
   .container {
     max-width: 1000px;
     margin: auto;
     background-color: rgba(0, 0, 0, 0.5);
+    /* background-color: #fff; */
     padding: 20px;
     border-radius: 10px;
   }
@@ -127,29 +130,41 @@ body {
     font-size: 14px; /* Smaller font size */
     margin-top: 5px; /* Space above the button */
 }
-/* Profile Logo */
+
+.profile-container {
+  position: fixed; /* Fix position to the viewport */
+  top: 20px; /* Distance from the top */
+  right: 70px; /* Distance from the right */
+  z-index: 10; /* Ensure it appears above other elements */
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
 .profile-logo {
-  position: absolute; /* Position it relative to the nearest positioned ancestor */
-  top: 20px; /* Adjust top position */
-  right: 20px; /* Adjust right position */
-  width: 60px; /* Set width for the logo */
-  height: 60px; /* Set height for the logo */
+  width: 60px; /* Adjust the size of the profile logo */
+  height: 60px; /* Adjust the size of the profile logo */
   border-radius: 50%; /* Make it circular */
-  cursor: pointer; /* Change cursor to pointer for clickable effect */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Optional shadow for depth */
-}
-
-/* Style for disabled input fields */
-input:disabled {
-  width: 90%;
-  background-color: white; /* White background */
-  color: black; /* Black text color */
-  opacity: 1; /* Remove default disabled opacity */
-}
-
-/* Specific styles for Email and University fields */
-#email:disabled,
-#university:disabled {
-  background-color: white; /* White background */
-  color: black; /* Black text color */
+  cursor: pointer; /* Change cursor on hover */
+  border: 2px solid #fff; /* Optional: White border */
 }

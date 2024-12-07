@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Listings</title>
+    <title>Interested Listings</title>
     <link rel="stylesheet" href="items.css">
+    <link rel="stylesheet" href="get_interested_listings.css">
 </head>
 <body>
     <div class="navigation-panel">
@@ -14,27 +15,26 @@
         <button onclick="window.location.href='create_listing.html'">Create Item Listing</button>
         <button onclick="window.location.href='my_history.html'">History</button>
         <!-- <button onclick="window.location.href='update_user.html'">Update Profile</button> -->
-        <div class="profile-container">
-            <img src="TEMPLATES/profile-picture.jpg" alt="Profile" class="profile-logo" />
-            <div class="dropdown">
-                <a href="update_user.html">Update Profile</a>
-                <a href="#" id="logout-link">Logout</a> 
-            </div>
-        </div>
+        <img src="TEMPLATES/profile-picture.jpg" alt="Profile" class="profile-logo" onclick="window.location.href='update_user.html'" />
     </div>
 
     <div class="main-content">
         <div class="container">
-            <h1>My Listings</h1>
-            <div id="my-listings-container" class="listings-container"></div>
-
-            <!-- Pagination Controls -->
-            <button id="next-button" style="display:none;">Next</button>
-            <button id="back-button" style="display:none;">Back</button>
+            <div class="content-wrapper">
+                <div id="item-details" class="left-block">
+                    <!-- Item details will be dynamically inserted here -->
+                </div>
+                
+                <div id="interested-listings" class="right-block">
+                    <!-- Interested buyer details will be dynamically inserted here -->
+                </div>
+            </div>
+            <button id="back-button">Back</button>
+            <button id="mark-interested-button" >Mark Interested</button>
         </div>
     </div>
-
-    <script src="my_listings.js"></script>
-    <script src="update_delete.js"></script>
+    
+    <script src="get_interested_listings_seller.js"></script>
+    <script src="item_details.js"></script>
 </body>
 </html>

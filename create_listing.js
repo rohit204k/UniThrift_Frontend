@@ -112,5 +112,19 @@ createItemForm.addEventListener('submit', async function (event) {
   }
 });
 
+function logout() {
+  // Clear all items from local storage
+  localStorage.clear();
+
+  // Redirect to index.html
+  window.location.href = 'index.html';
+}
+
+// Event listener for the logout link
+document.getElementById('logout-link').addEventListener('click', (event) => {
+  event.preventDefault(); // Prevent the default link behavior
+  logout(); // Call the logout function
+});
+
 // Fetch categories when the page loads
 fetchCategories();

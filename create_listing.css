@@ -69,3 +69,14 @@ button:hover {
 #back-button:hover {
   background-color: #5a6268;
 }
+/* Profile Logo */
+.profile-logo {
+  position: absolute; /* Position it relative to the nearest positioned ancestor */
+  top: 20px; /* Adjust top position */
+  right: 20px; /* Adjust right position */
+  width: 60px; /* Set width for the logo */
+  height: 60px; /* Set height for the logo */
+  border-radius: 50%; /* Make it circular */
+  cursor: pointer; /* Change cursor to pointer for clickable effect */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Optional shadow for depth */
+}
