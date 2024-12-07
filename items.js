@@ -89,7 +89,7 @@ function displayItemsForCurrentPage(allItems) {
       `;
 
       itemDiv.addEventListener('click', () => {
-          window.location.href = `item_details.html?itemId=${item._id}`;
+          window.location.href = `available_listings.html?itemId=${item._id}`;
       });
       renderItemActions(item, itemDiv);
       itemListContainer.appendChild(itemDiv);
