@@ -45,7 +45,7 @@ textarea {
   resize: vertical;
 }
 
-button {
+.create-item-form button {
   width: 100%;
   padding: 12px;
   background-color: #4CAF50;
@@ -58,7 +58,7 @@ button {
   transition: background-color 0.3s ease;
 }
 
-button:hover {
+.create-item-form button:hover {
   background-color: #45a049;
 }
 

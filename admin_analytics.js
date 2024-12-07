@@ -38,6 +38,45 @@ function renderPieChart(ctx, labels, data, title) {
     }
   });
 }
+function renderTimeSeriesChart(ctx, labels, data, title) {
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: title,
+        data: data,
+        borderColor: 'rgba(75, 192, 192, 1)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: title
+        }
+      },
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: 'Month-Year'
+          }
+        },
+        y: {
+          title: {
+            display: true,
+            text: 'Revenue ($)'
+          },
+          beginAtZero: true
+        }
+      }
+    }
+  });
+}
 
 function getMostListedItems() {
   fetch('http://18.117.164.164:4001/api/v1/admin/most_listed_items', {
@@ -72,8 +111,9 @@ function getTotalRevenue() {
   .then(response => response.json())
   .then(data => {
     if (data.status === "SUCCESS" && data.data.length > 0) {
-      const totalPrice = data.data[0].total_price;
-      document.getElementById('total-revenue').textContent = `Total Price: $${totalPrice}`;
+      const totalRevenue = data.data.reduce((sum, item) => sum + item.revenue, 0);
+      console.log(totalRevenue)
+      document.getElementById('total-revenue').textContent = `Total Revenue: $${totalRevenue}`;
     } else {
       document.getElementById('total-revenue').textContent = "No revenue data available.";
     }
@@ -81,6 +121,33 @@ function getTotalRevenue() {
   .catch(error => {
     console.error(error);
     document.getElementById('total-revenue').textContent = "Error fetching revenue data.";
+  });
+}
+function renderRevenueTimeSeries() {
+  fetch('http://18.117.164.164:4001/api/v1/admin/total_revenue', {
+    headers: { 'Authorization': `Bearer ${getAccessToken()}` }
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.status === "SUCCESS" && data.data.length > 0) {
+      const timeSeriesData = data.data; // Response data containing year, month, and revenue
+
+      // Create labels in 'Month-Year' format
+      const labels = timeSeriesData.map(item => `${item.month}-${item.year}`);
+      
+      // Extract revenue data
+      const revenueData = timeSeriesData.map(item => item.revenue);
+
+      // Render the time-series chart
+      renderTimeSeriesChart(document.getElementById('revenueTimeSeriesChart'), labels, revenueData, 'Revenue Over Time');
+    } else {
+      console.error('No revenue time series data available.');
+      document.getElementById('revenueTimeSeriesChart').textContent = "No revenue time series data available.";
+    }
+  })
+  .catch(error => {
+    console.error(error);
+    document.getElementById('revenueTimeSeriesChart').textContent = "Error fetching revenue time series data.";
   });
 }
 // Logout function
@@ -101,3 +168,4 @@ document.getElementById('logout-link').addEventListener('click', (event) => {
 getMostListedItems();
 getMostInquiredItems();
 getTotalRevenue();
+renderRevenueTimeSeries();

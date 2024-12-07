@@ -12,14 +12,13 @@
             margin: 0;
             padding: 0;
             display: flex;
-            position: relative;
         }
         .sidebar {
             width: 250px;
             background-color: #333;
             color: #fff;
-            height: 100vh; /* Full height */
-            position: fixed; /* Fixed sidebar */
+            height: 100vh;
+            position: fixed;
             top: 0;
             left: 0;
             padding: 20px;
@@ -42,10 +41,10 @@
             background-color: #575757;
         }
         .profile-container {
-            position: fixed; /* Fix position to the viewport */
-            top: 20px; /* Distance from the top */
-            right: 70px; /* Distance from the right */
-            z-index: 10; /* Ensure it appears above other elements */
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10;
         }
         .dropdown {
             position: relative;
@@ -72,35 +71,41 @@
             display: block;
         }
         .main-content {
-            margin-left: 250px; /* Align with sidebar width */
+            margin-left: 250px;
             padding: 20px;
             box-sizing: border-box;
-            flex: 1; /* Allow main content to expand */
+            width: calc(100% - 250px);
         }
         h1 {
             text-align: center;
+            margin-bottom: 20px;
         }
         .container {
             display: flex;
             flex-wrap: wrap;
+            gap: 20px;
             justify-content: space-around;
-            margin-top: 20px;
         }
         .card {
-            width: 45%;
-            margin-bottom: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            flex: 1 1 calc(45% - 20px);
+            max-width: 400px;
         }
         canvas {
-            background-color: #f9f9f9;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100% !important;
+            height: 300px !important;
+            margin-top: 10px;
         }
         .profile-logo {
-            width: 60px; /* Adjust the size of the profile logo */
-            height: 60px; /* Adjust the size of the profile logo */
-            border-radius: 50%; /* Make it circular */
-            cursor: pointer; /* Change cursor on hover */
-            border: 2px solid #fff; /* Optional: White border */
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid #fff;
         }
     </style>
 </head>
@@ -110,7 +115,7 @@
             <li><a href="admin_analytics.html">Admin Analytics</a></li>
             <li><a href="category_management.html">All Categories</a></li>
             <li><a href="all_students.html">All Students</a></li>
-            <li><a href="all_listings.html">All Listings</a></li>     
+            <li><a href="all_listings.html">All Listings</a></li>
         </ul>
         <div class="profile-container">
             <div class="dropdown">
@@ -125,6 +130,11 @@
     <div class="main-content">
         <h1>Admin Analytics</h1>
         <div class="container">
+            
+            <div class="card">
+                <h2>Total Revenue</h2>
+                <p id="total-revenue">Total Price: $100</p>
+            </div>
             <div class="card">
                 <h2>Most Listed Items</h2>
                 <canvas id="mostListedItemsChart"></canvas>
@@ -134,11 +144,11 @@
                 <canvas id="mostInquiredItemsChart"></canvas>
             </div>
             <div class="card">
-                <h2>Total Revenue</h2>
-                <p id="total-revenue">Loading...</p>
+                <h2>Total Revenue (Time Series)</h2>
+                <canvas id="revenueTimeSeriesChart"></canvas>
             </div>
         </div>
     </div>
     <script src="admin_analytics.js"></script>
-</body> 
+</body>
 </html>

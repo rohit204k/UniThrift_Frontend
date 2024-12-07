@@ -184,12 +184,12 @@ body {
   }
   
   .update-button {
-    background-color: #4CAF50; /* Green */
+    background-color: #9ee1a0; /* Green */
     color: white;
   }
   
   .delete-button {
-    background-color: #f44336; /* Red */
+    background-color: #dc7f7f; /* Red */
     color: white;
   }
   
@@ -226,11 +226,11 @@ body {
   }
   
   button.update-button {
-    background-color: #4CAF50; /* Green for update button */
+    background-color: #79d37c; /* Green for update button */
   }
   
   button.delete-button {
-    background-color: #f44336; /* Red for delete button */
+    background-color: #be4c44; /* Red for delete button */
   }
   
   /* Style for modal labels and input fields */
