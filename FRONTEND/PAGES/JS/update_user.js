@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Populate fields, checking for the string "string"
             document.getElementById('email').value = userData.email === "string" ? "" : userData.email;
             document.getElementById('university').value = userData.university === "string" ? "" : userData.university;
+            document.getElementById('university-id').value = userData.university_id === "string" ? "" : userData.university_id; // New line for university_id
             document.getElementById('first-name').value = userData.first_name === "string" ? "" : userData.first_name;
             document.getElementById('last-name').value = userData.last_name === "string" ? "" : userData.last_name;
             document.getElementById('phone').value = userData.phone === "string" ? "" : userData.phone;
