@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interested Listings</title>
+    <link rel="stylesheet" href="../STYLES/items.css">
+    <link rel="stylesheet" href="../STYLES/get_interested_listings.css">
+</head>
+<body>
+    <div class="navigation-panel">
+        <button onclick="window.location.href='items.html'">All Available Listings</button>
+        <button onclick="window.location.href='my_listings.html'">My Listings</button>
+        <button onclick="window.location.href='interested_items.html'">Interested Items History</button>
+        <button onclick="window.location.href='create_listing.html'">Create Item Listing</button>
+        <button onclick="window.location.href='my_history.html'">History</button>
+        <img src="../TEMPLATES/profile-picture.jpg" alt="Profile" class="profile-logo" onclick="window.location.href='update_user.html'" />
+    </div>
+
+    <div class="main-content">
+        <div class="container">
+            <div class="content-wrapper">
+                <div id="item-details" class="left-block">
+                    <!-- Item details will be dynamically inserted here -->
+                </div>
+                
+                <div id="interested-listings" class="right-block">
+                    <!-- Interested buyer details will be dynamically inserted here -->
+                </div>
+            </div>
+            <button id="back-button">Back</button>
+            <button id="mark-interested-button" >Mark Interested</button>
+        </div>
+    </div>
+    
+    <script src="../JS/get_interested_listings_seller.js"></script>
+    <script src="../JS/item_details.js"></script>
+</body>
+</html>
