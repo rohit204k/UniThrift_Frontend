@@ -26,6 +26,12 @@ loginForm.addEventListener('submit', async (event) => {
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
 
+    // Validate inputs
+    if (!email || !password) {
+        alert("Please enter both email and password.");
+        return; // Prevent further execution if validation fails
+    }
+    
     try {
         // Send login request to API
         const response = await makeApiRequest(
