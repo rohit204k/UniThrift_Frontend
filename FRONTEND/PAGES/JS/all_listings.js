@@ -49,6 +49,7 @@ async function fetchItems(page) {
 }
 
 // Display items
+// Display items
 function displayItems(items) {
     itemListContainer.innerHTML = ''; // Clear previous items
     items.forEach(item => {
@@ -58,17 +59,44 @@ function displayItems(items) {
             <h2>${item.title}</h2>
             <p><strong>Price:</strong> $${item.price}</p>
             <p><strong>Status:</strong> ${item.status}</p>
+            <button class="delete-btn" data-id="${item._id}">Delete</button>
         `;
 
         // Make each item clickable and redirect to the details page
-        itemDiv.addEventListener('click', () => {
+        itemDiv.querySelector('h2').addEventListener('click', () => {
             window.location.href = `../HTML/item_details.html?itemId=${item._id}`;
+        });
+
+        // Add the delete functionality
+        const deleteBtn = itemDiv.querySelector('.delete-btn');
+        deleteBtn.addEventListener('click', async (event) => {
+            event.stopPropagation(); // Prevent triggering the click on the item
+            const listingId = event.target.getAttribute('data-id');
+            await deleteListing(listingId);
         });
 
         itemListContainer.appendChild(itemDiv);
     });
 
     updatePaginationButtons();
+}
+
+// Delete a listing
+async function deleteListing(listingId) {
+    try {
+        const apiUrl = `http://18.117.164.164:4001/api/v1/listing/delete/${listingId}`;
+        const response = await makeApiRequest(apiUrl, 'DELETE', null, accessToken());
+
+        if (response.status === 'SUCCESS') {
+            alert('Listing deleted successfully.');
+            loadItems(); // Refresh the items list
+        } else {
+            alert(`Failed to delete listing: ${response.message || 'Unknown error'}`);
+        }
+    } catch (error) {
+        console.error('Error deleting listing:', error);
+        alert('An error occurred while trying to delete the listing. Please try again later.');
+    }
 }
 
 // Update pagination buttons based on the current page
@@ -112,10 +140,6 @@ document.getElementById('logout-link').addEventListener('click', (event) => {
     logout(); // Call the logout function
 });
 
-document.getElementById('profileid').addEventListener('click', () => {
-    const dropdown = document.querySelector('.dropdown');
-    dropdown.classList.toggle('show'); // Toggle the dropdown visibility
-  });
-  
+
 // Initial loading of items
 loadItems();

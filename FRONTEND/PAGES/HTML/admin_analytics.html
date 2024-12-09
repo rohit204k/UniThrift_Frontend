@@ -71,7 +71,7 @@
             display: block;
         }
         .dropdown.show {
-            display: block; /* Show dropdown when 'show' class is added */
+            display: block;
         }
         .main-content {
             margin-left: 250px;
@@ -85,18 +85,22 @@
         }
         .container {
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: wrap; /* Allows wrapping of cards */
+            justify-content: space-between;
             gap: 20px;
-            justify-content: space-around;
         }
+
         .card {
             background-color: #fff;
             border-radius: 8px;
-            padding: 20px;
+            padding: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             text-align: center;
-            flex: 1 1 calc(45% - 20px);
-            max-width: 400px;
+            flex: 0 0 calc(50% - 20px); /* Flex-basis with gap considered */
+            max-width: calc(50% - 20px); /* Ensures cards stay within two per row */
+        }
+        .card #total-revenue {
+            font-size: 5rem; /* Increase font size for total revenue */
         }
         canvas {
             width: 100% !important;
@@ -122,7 +126,7 @@
         </ul>
         <div class="profile-container">
             <div class="dropdown">
-                <img src="../TEMPLATES/profile-picture.jpg" id= "profileid" alt="Profile" class="profile-logo" />
+                <img src="../TEMPLATES/profile-picture.jpg" id="profileid" alt="Profile" class="profile-logo" />
                 <div class="dropdown-content">
                     <a href="update_admin.html">Update Profile</a>
                     <a href="#" id="logout-link">Logout</a>
@@ -133,10 +137,9 @@
     <div class="main-content">
         <h1>Admin Analytics</h1>
         <div class="container">
-            
             <div class="card">
-                <h2>Total Revenue</h2>
-                <p id="total-revenue">Total Price: $100</p>
+                <!-- <h2>Total Revenue</h2> -->
+                <p id="total-revenue"></p>
             </div>
             <div class="card">
                 <h2>Most Listed Items</h2>
