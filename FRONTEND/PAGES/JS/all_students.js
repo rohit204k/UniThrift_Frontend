@@ -65,5 +65,10 @@ document.getElementById('logout-link').addEventListener('click', (event) => {
     event.preventDefault(); // Prevent the default link behavior
     logout(); // Call the logout function
 });
+document.getElementById('profileid').addEventListener('click', () => {
+    const dropdown = document.querySelector('.dropdown');
+    dropdown.classList.toggle('show'); // Toggle the dropdown visibility
+  });
+  
 // Fetch and display students when the page loads
 fetchStudents();

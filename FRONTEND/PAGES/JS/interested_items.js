@@ -90,9 +90,9 @@ document.getElementById('logout-link').addEventListener('click', (event) => {
   event.preventDefault(); // Prevent the default link behavior
   logout(); // Call the logout function
 });
-
+document.getElementById('profileid').addEventListener('click', () => {
+  const dropdown = document.querySelector('.dropdown');
+  dropdown.classList.toggle('show'); // Toggle the dropdown visibility
+});
 // Call the API to fetch interested listings
 fetchInterestedListings();
-/* <p><strong>Created At:</strong> ${new Date(item.created_at).toLocaleString()}</p>
-<p><strong>Updated At:</strong> ${new Date(item.updated_at).toLocaleString()}</p>
-<hr></hr> */

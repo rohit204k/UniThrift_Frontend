@@ -146,6 +146,9 @@ backButton.addEventListener('click', () => {
         updatePaginationButtons();
     }
 });
-
+document.getElementById('profileid').addEventListener('click', () => {
+    const dropdown = document.querySelector('.dropdown');
+    dropdown.classList.toggle('show'); // Toggle the dropdown visibility
+  });
 // Initial page load
 fetchAllUserListings();

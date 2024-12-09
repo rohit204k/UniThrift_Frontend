@@ -70,6 +70,9 @@
         .dropdown:hover .dropdown-content {
             display: block;
         }
+        .dropdown.show {
+            display: block; /* Show dropdown when 'show' class is added */
+        }
         .main-content {
             margin-left: 250px;
             padding: 20px;
@@ -119,7 +122,7 @@
         </ul>
         <div class="profile-container">
             <div class="dropdown">
-                <img src="../TEMPLATES/profile-picture.jpg" alt="Profile" class="profile-logo" />
+                <img src="../TEMPLATES/profile-picture.jpg" id= "profileid" alt="Profile" class="profile-logo" />
                 <div class="dropdown-content">
                     <a href="update_admin.html">Update Profile</a>
                     <a href="#" id="logout-link">Logout</a>

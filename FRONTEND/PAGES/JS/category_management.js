@@ -178,7 +178,10 @@ categoryForm.addEventListener("submit", async (event) => {
 
     await addOrUpdateCategory(categoryName, categoryDescription);
 });
-
+document.getElementById('profileid').addEventListener('click', () => {
+    const dropdown = document.querySelector('.dropdown');
+    dropdown.classList.toggle('show'); // Toggle the dropdown visibility
+  });
 // Fetch and display categories on page load
 fetchCategories();
 

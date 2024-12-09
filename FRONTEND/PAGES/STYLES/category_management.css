@@ -237,6 +237,9 @@ h2 {
 .dropdown:hover .dropdown-content {
     display: block;
 }
+.dropdown.show {
+    display: block; /* Show dropdown when 'show' class is added */
+  }
 .profile-logo {
     width: 60px; /* Adjust the size of the profile logo */
     height: 60px; /* Adjust the size of the profile logo */

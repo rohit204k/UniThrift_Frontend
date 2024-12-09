@@ -51,6 +51,7 @@
 .view-button:hover {
     background-color: #45a049; /* Darker green on hover */
 }
+
 /* Profile Logo */
 .profile-logo {
     position: absolute; /* Position it relative to the nearest positioned ancestor */
@@ -62,3 +63,7 @@
     cursor: pointer; /* Change cursor to pointer for clickable effect */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Optional shadow for depth */
   }
+  .dropdown.show {
+    display: block; /* Show dropdown when 'show' class is added */
+  }
+  

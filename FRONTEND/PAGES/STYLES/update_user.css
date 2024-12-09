@@ -138,7 +138,9 @@ body {
   cursor: pointer; /* Change cursor to pointer for clickable effect */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Optional shadow for depth */
 }
-
+.dropdown.show {
+  display: block; /* Show dropdown when 'show' class is added */
+}
 /* Style for disabled input fields */
 input:disabled {
   width: 90%;
