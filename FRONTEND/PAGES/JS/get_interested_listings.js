@@ -57,10 +57,6 @@ function displayInterestedListings(data) {
   `;
 }
 
-{/* <h3>Item Details</h3>
-<p><strong>Listing ID:</strong> ${data.listing_id}</p>
-<p><strong>Buyer ID:</strong> ${data.buyer_id}</p> */}
-
 // Extract listing ID from URL query parameter
 const urlParam = new URLSearchParams(window.location.search);
 const listingId = urlParam.get('listing_id');

@@ -1,6 +1,3 @@
-// Access token for API authentication
-// const accessToken = () => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjc0MGMxZTRlZDYyNmYxMTM3MjhmYjNmIiwidXNlcl90eXBlIjoiU1RVREVOVCIsInRva2VuX3R5cGUiOiJiZWFyZXIiLCJpYXQiOjE3MzI4Mzc4NTQsImV4cCI6MTczMjkyNDI1NH0.hG0bEzD5K4eJU4wi35ckWA13rpCf_3S_3xAAmWcc6uA";
-// const accessToken = () => localStorage.getItem('accessToken');
 // Get the necessary DOM elements
 const itemDetailsContainer = document.getElementById('item-details');
 const backButton = document.getElementById('back-button');
@@ -77,16 +74,6 @@ function displayItemDetails(item) {
     markInterestedButton.style.display = 'inline-block'; // Show the button if they are not equal
   }
 
-  // if (markInterestedButton) {
-  //   // Check if seller_id equals userId
-  //   if (sellerId === userId) {
-  //     markInterestedButton.style.display = 'none'; // Hide the button if they are equal
-  //   } else {
-  //     markInterestedButton.style.display = 'inline-block'; // Show the button if they are not equal
-  //   }
-  // } else {
-  //   console.warn('Mark Interested button not found.');
-  // }
 
 }
 

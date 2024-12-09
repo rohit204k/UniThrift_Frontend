@@ -55,8 +55,6 @@ signupForm.addEventListener('submit', async (event) => {
     // const university = document.getElementById('signup-universityname').value;
     const university_name = document.getElementById('signup-universityname').options[document.getElementById('signup-universityname').selectedIndex].textContent; // Selected university name
     const university_id = document.getElementById('signup-universityid').value;
-    // const phone = document.getElementById('signup-phone').value;
-    // const address = document.getElementById('signup-addr').value;
     const password = document.getElementById('signup-password').value;
     try {
         console.log('Sending signup API request'); // Debugging step
