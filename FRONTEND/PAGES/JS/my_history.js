@@ -94,6 +94,11 @@ function closePopup() {
 function displayBoughtItems(items) {
   boughtItemsList.innerHTML = '';
 
+  if (items.length === 0) {
+    boughtItemsList.innerHTML = '<p>No bought items available.</p>';
+    return;
+  }
+
   items.forEach(item => {
     const itemElement = document.createElement('div');
     itemElement.classList.add('item-card');
@@ -118,6 +123,11 @@ function displayBoughtItems(items) {
 
 function displaySoldItems(items) {
   soldItemsList.innerHTML = '';
+
+  if (items.length === 0) {
+    soldItemsList.innerHTML = '<p>No sold items available.</p>';
+    return;
+  }
 
   items.forEach(item => {
     const itemElement = document.createElement('div');
@@ -216,5 +226,6 @@ document.getElementById('profileid').addEventListener('click', () => {
   const dropdown = document.querySelector('.dropdown');
   dropdown.classList.toggle('show'); // Toggle the dropdown visibility
 });
+
 // Initial page load: fetch and display bought items
 fetchBoughtItems();
