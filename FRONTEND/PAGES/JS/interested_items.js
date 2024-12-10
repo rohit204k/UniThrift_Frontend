@@ -1,98 +1,171 @@
-// Get the container for displaying interested items
+// Get the necessary DOM elements
 const interestedItemsContainer = document.getElementById('interested-items-container');
+const nextButton = document.getElementById('my-next-button');
+const backButton = document.getElementById('my-back-button');
 
 // Access token function
-const accessToken = () => {
-  const token = localStorage.getItem('accessToken');
-  console.log("Access Token:", token); // Debug: Log the access token
-  return token;
-};
+const accessToken = () => localStorage.getItem('accessToken');
 
-// Function to fetch the interested listings from the API
-async function fetchInterestedListings(page = 1, pageSize = 10) {
-  const apiUrl = `http://18.117.164.164:4001/api/v1/queueing/get_interested_listings?page=${page}&page_size=${pageSize}`;
-  console.log("API URL:", apiUrl); // Debug: Log the API URL
+// Variables for pagination
+let currentPage = 1;
+const itemsPerPage = 6;
+let allItems = [];
 
-  try {
-    // Fetch data with access token authentication
-    const response = await makeApiRequest(apiUrl, 'GET', null, accessToken());
-    console.log("API Response:", response); // Debug: Log the API response
-
-    if (response && response.status === 'SUCCESS' && response.data.length > 0) {
-      displayInterestedListings(response.data);
-    } else if (response && response.status === 'SUCCESS' && response.data.length === 0) {
-      interestedItemsContainer.innerHTML = '<p>No interested items found.</p>';
-    } else {
-      console.error('Failed to fetch interested listings:', response);
-      interestedItemsContainer.innerHTML = '<p>An error occurred while fetching interested items.</p>';
-    }
-  } catch (error) {
-    console.error('Error fetching interested listings:', error);
-    interestedItemsContainer.innerHTML = '<p>Failed to load interested items. Please try again later.</p>';
-  }
+// Debugging function to log important information
+function debugLog(message, data) {
+    console.log(`[InterestedListings Debug] ${message}`, data);
 }
 
-// Function to make API requests
+// API request utility
 async function makeApiRequest(url, method, data = null, token = null) {
-  const headers = {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${token}`,
-  };
-  console.log("Request Headers:", headers); // Debug: Log request headers
+    try {
+        debugLog('API Request URL', url);
+        
+        const headers = {
+            'Content-Type': 'application/json',
+            ...(token && { 'Authorization': `Bearer ${token}` }),
+        };
 
-  const response = await fetch(url, {
-    method,
-    headers,
-    body: data ? JSON.stringify(data) : null,
-  });
+        const response = await fetch(url, {
+            method,
+            headers,
+            body: data ? JSON.stringify(data) : null,
+        });
 
-  if (!response.ok) {
-    console.error('API request failed with status:', response.status);
-    throw new Error(`API request failed with status ${response.status}`);
-  }
+        debugLog('Response Status', response.status);
 
-  return await response.json();
+        if (!response.ok) {
+            const error = await response.text();
+            debugLog('API Error Response', error);
+            throw new Error(`Request failed: ${response.statusText}`);
+        }
+
+        const jsonResponse = await response.json();
+        debugLog('Full API Response', jsonResponse);
+        return jsonResponse;
+    } catch (error) {
+        debugLog('Network Error', error);
+        throw error;
+    }
 }
 
-// Function to display interested listings in the DOM
-function displayInterestedListings(items) {
-    interestedItemsContainer.innerHTML = items
-      .map(
-        (item) => `
-        <div class="interested-item-container">
-          <h2> ${item.title || 'N/A'}</h2>
-          <p><strong>Comment:</strong> ${item.comments || 'No comments available.'}</p>
-          <p><strong>Status:</strong> ${item.status || 'Unknown'}</p>
-          <div class="interested-item-actions">
-            <button class="view-button" onclick="viewDetails('${item.listing_id}')">View Details</button>
-          </div>
-        </div>
-      `
-      )
-      .join('');
-    console.log("Listings displayed successfully!"); // Debug: Confirm items displayed
-  }
+// Fetch all interested listings
+async function fetchAllInterestedListings() {
+    try {
+        const token = accessToken();
+        if (!token) {
+            throw new Error('Access token is missing.');
+        }
+
+        let page = 1;
+        let hasMoreItems = true;
+
+        while (hasMoreItems) {
+            const apiUrl = `http://18.117.164.164:4001/api/v1/queueing/get_interested_listings?page=${page}&page_size=${itemsPerPage}`;
+            const response = await makeApiRequest(apiUrl, 'GET', null, token);
+
+            if (response?.status === 'SUCCESS' && response.data) {
+                allItems.push(...response.data);
+
+                if (response.data.length < itemsPerPage) {
+                    hasMoreItems = false;
+                }
+
+                page++;
+            } else {
+                hasMoreItems = false;
+            }
+        }
+
+        debugLog('Total Items Fetched', allItems.length);
+        displayInterestedListings();
+        updatePaginationButtons();
+    } catch (error) {
+        console.error(error);
+        interestedItemsContainer.innerHTML = '<p>An error occurred while fetching interested listings.</p>';
+    }
+}
+
+// Display interested listings for the current page
+function displayInterestedListings() {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const pageItems = allItems.slice(startIndex, endIndex);
+    
+    interestedItemsContainer.innerHTML = '';
+
+    if (pageItems.length > 0) {
+        pageItems.forEach(item => {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'interested-item-container';
+            itemDiv.innerHTML = `
+                <h2>${item.title || 'N/A'}</h2>
+                <p><strong>Comment:</strong> ${item.comments || 'No comments available.'}</p>
+                <p><strong>Status:</strong> ${item.status || 'Unknown'}</p>
+                <div class="interested-item-actions">
+                    <button class="view-button" onclick="viewDetails('${item.listing_id}')">View Details</button>
+                </div>
+            `;
+
+            interestedItemsContainer.appendChild(itemDiv);
+        });
+    } else {
+        interestedItemsContainer.innerHTML = '<p>No interested items found.</p>';
+    }
+}
+
+// Update pagination buttons
+function updatePaginationButtons() {
+    const totalItems = allItems.length;
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+    backButton.style.display = currentPage > 1 ? 'block' : 'none';
+    nextButton.style.display = currentPage < totalPages ? 'block' : 'none';
+
+    backButton.disabled = currentPage <= 1;
+    nextButton.disabled = currentPage >= totalPages;
+}
+
+// Event listeners for pagination buttons
+nextButton.addEventListener('click', () => {
+    const totalPages = Math.ceil(allItems.length / itemsPerPage);
+    if (currentPage < totalPages) {
+        currentPage++;
+        displayInterestedListings();
+        updatePaginationButtons();
+    }
+});
+
+backButton.addEventListener('click', () => {
+    if (currentPage > 1) {
+        currentPage--;
+        displayInterestedListings();
+        updatePaginationButtons();
+    }
+});
+
+// Function to view details of a specific listing
 function viewDetails(listingId) {
-// Redirect to the new page, passing the listing ID as a query parameter
-window.location.href = `../HTML/get_interested_listings.html?listing_id=${listingId}`;
+    window.location.href = `../HTML/get_interested_listings.html?listing_id=${listingId}`;
 }
 
+// Logout function
 function logout() {
-  // Clear all items from local storage
-  localStorage.clear();
-
-  // Redirect to index.html
-  window.location.href = '../HTML/index.html';
+    localStorage.clear();
+    window.location.href = '../HTML/index.html';
 }
 
 // Event listener for the logout link
 document.getElementById('logout-link').addEventListener('click', (event) => {
-  event.preventDefault(); // Prevent the default link behavior
-  logout(); // Call the logout function
+    event.preventDefault();
+    logout();
 });
+
+// Event listener for profile dropdown
 document.getElementById('profileid').addEventListener('click', () => {
-  const dropdown = document.querySelector('.dropdown');
-  dropdown.classList.toggle('show'); // Toggle the dropdown visibility
+    const dropdown = document.querySelector('.dropdown');
+    dropdown.classList.toggle('show');
 });
-// Call the API to fetch interested listings
-fetchInterestedListings();
+
+// Initial page load
+fetchAllInterestedListings();
