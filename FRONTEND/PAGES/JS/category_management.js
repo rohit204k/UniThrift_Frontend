@@ -18,7 +18,7 @@ const API_BASE_URL = "http://18.117.164.164:4001/api/v1/item_categories";
 
 async function fetchCategories() {
     try {
-        const response = await fetch(`${API_BASE_URL}/get_items`, {
+        const response = await fetch(`${API_BASE_URL}/get_items?page_size=30`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${getAccessToken()}`, // Using token for authentication

@@ -14,7 +14,7 @@
         <button onclick="window.location.href='create_listing.html'">Create Item Listing</button>
         <button onclick="window.location.href='my_history.html'">History</button>
         <div class="profile-container">
-            <img src="../TEMPLATES/profile-picture.jpg" alt="Profile" id= "profileid" class="profile-logo" />
+            <img src="../TEMPLATES/profile-picture.jpg" alt="Profile" id="profileid" class="profile-logo" />
             <div class="dropdown">
                 <a href="update_user.html">Update Profile</a>
                 <a href="#" id="logout-link">Logout</a> 
@@ -25,11 +25,22 @@
     <div class="main-content">
         <div class="container">
             <h1>Available Listings</h1>
+            
+            <!-- Category Dropdown -->
+            <div class="category-filter">
+                <label for="category-dropdown">Filter by Category:</label>
+                <select id="category-dropdown">
+                    <!-- Categories will be dynamically populated by JavaScript -->
+                </select>
+            </div>
+
             <div id="item-list"></div>
 
             <!-- Pagination Controls -->
-            <button id="next-button" style="display:none;">Next</button>
-            <button id="back-button" style="display:none;">Back</button>
+            <div class="pagination-controls">
+                <button id="back-button" style="display:none;">Back</button>
+                <button id="next-button" style="display:none;">Next</button>
+            </div>
         </div>
     </div>
 

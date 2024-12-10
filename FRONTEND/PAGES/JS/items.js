@@ -1,14 +1,18 @@
 // Access token for API authentication
 const accessToken = () => localStorage.getItem('accessToken');
+
 // Get the necessary DOM elements
 const itemListContainer = document.getElementById('item-list');
 const nextButton = document.getElementById('next-button');
 const backButton = document.getElementById('back-button');
+const categoryDropdown = document.getElementById('category-dropdown');
 
-// Variables to handle pagination
+// Variables to handle pagination and filtering
 let currentPage = 1;
 const itemsPerPage = 8;
 let totalItems = 0;
+let allItems = [];
+let categories = [];
 
 // Make API request function
 async function makeApiRequest(url, method, data = null, accessToken = null) {
@@ -33,11 +37,103 @@ async function makeApiRequest(url, method, data = null, accessToken = null) {
   return await response.json();
 }
 
+// Fetch categories
+// Fetch categories
+async function fetchCategories() {
+  try {
+    const response = await fetch(`http://18.117.164.164:4001/api/v1/item_categories/get_items?page_size=30`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${accessToken()}`, // Using token for authentication
+      }
+    });
+    if (!response.ok) {
+      throw new Error("Failed to fetch categories");
+    }
+    const { data } = await response.json();
+    populateCategoryDropdown(data.data);
+  } catch (error) {
+    console.error("Error fetching categories:", error.message);
+  }
+}
+
+// Populate category dropdown
+function populateCategoryDropdown(categories) {
+  const categoryDropdown = document.getElementById('category-dropdown');
+
+  // Add "All" option
+  const allOption = document.createElement('option');
+  allOption.value = 'ALL';
+  allOption.textContent = 'All Categories';
+  categoryDropdown.appendChild(allOption);
+
+  // Add category options
+  categories.forEach(category => {
+    const option = document.createElement('option');
+    option.value = category._id; // Use the category ID as the value
+    option.textContent = category.item_name; // Display name of the category
+    categoryDropdown.appendChild(option);
+  });
+
+  // Add event listener for category selection
+  categoryDropdown.addEventListener('change', filterItemsByCategory);
+}
+
+// Filter items by category
+// function filterItemsByCategory() {
+//   const selectedCategory = categoryDropdown.value;
+//   console.log(selectedCategory);
+//   console.log(allItems.slice(0, 3));
+
+//   // Filter items based on selected category
+//   let filteredItems = selectedCategory === 'ALL'
+//     ? allItems
+//     : allItems.filter(item => item.item_id === selectedCategory);
+  
+//   console.log(filteredItems);
+//   // Reset to first page after filtering
+//   currentPage = 1;
+
+//   // Display filtered items
+//   displayItemsForCurrentPage(filteredItems);
+//   updatePaginationButtons(filteredItems);
+// }
+async function filterItemsByCategory() {
+  const selectedCategory = categoryDropdown.value;
+  console.log(selectedCategory);
+  console.log(allItems.slice(0, 3));
+  try {
+    // If "All Categories" is selected, reset to all items
+    if (selectedCategory === 'ALL') {
+      displayItemsForCurrentPage(allItems);
+      updatePaginationButtons(allItems);
+      return;
+    }
+
+    // Fetch filtered items for the selected category
+    const apiUrl = `http://18.117.164.164:4001/api/v1/listing/get_listings?item_id=${selectedCategory}`;
+    const response = await makeApiRequest(apiUrl, 'GET', null, accessToken());
+
+    if (response && response.status === 'SUCCESS' && response.data) {
+      // Update UI with filtered items
+      const filteredItems = response.data.filter(item => !item.is_deleted); // Exclude deleted items
+      displayItemsForCurrentPage(filteredItems);
+      updatePaginationButtons(filteredItems);
+    } else {
+      console.error('No items found for the selected category.');
+      itemListContainer.innerHTML = '<p>No items found in this category.</p>';
+    }
+  } catch (error) {
+    console.error('Error fetching items for category:', error.message);
+    itemListContainer.innerHTML = '<p>Failed to load items. Please try again later.</p>';
+  }
+}
+
 // Fetch all non-deleted items across all pages
 async function fetchAllItems() {
   try {
     let page = 1;
-    let allItems = [];
+    let fetchedItems = [];
     let hasMoreItems = true;
 
     while (hasMoreItems) {
@@ -49,7 +145,7 @@ async function fetchAllItems() {
         const nonDeletedItems = response.data.filter(item => !item.is_deleted);
         
         // Add non-deleted items to the collection
-        allItems.push(...nonDeletedItems);
+        fetchedItems.push(...nonDeletedItems);
 
         // Check if we've fetched all items
         if (nonDeletedItems.length < itemsPerPage) {
@@ -63,7 +159,7 @@ async function fetchAllItems() {
       }
     }
 
-    return allItems;
+    return fetchedItems;
   } catch (error) {
     console.error('Error fetching all items:', error);
     return [];
@@ -71,45 +167,57 @@ async function fetchAllItems() {
 }
 
 // Display items for the current page
-function displayItemsForCurrentPage(allItems) {
+function displayItemsForCurrentPage(items) {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const pageItems = allItems.slice(startIndex, endIndex);
+  const pageItems = items.slice(startIndex, endIndex);
 
   itemListContainer.innerHTML = '';
 
-  pageItems.forEach(item => {
-      const itemDiv = document.createElement('div');
-      itemDiv.className = 'item';
-      itemDiv.innerHTML = `
-          <div class="item-title">${item.title}</div>
-          <div class="item-status">Status: ${item.status}</div>
-          <div class="item-price">Price: $${item.price}</div>
-      `;
+  if (pageItems.length === 0) {
+    itemListContainer.innerHTML = '<p>No items found in this category.</p>';
+    return;
+  }
 
-      itemDiv.addEventListener('click', () => {
-          window.location.href = `../HTML/available_listings.html?itemId=${item._id}`;
-      });
-      renderItemActions(item, itemDiv);
-      itemListContainer.appendChild(itemDiv);
+  pageItems.forEach(item => {
+    const itemDiv = document.createElement('div');
+    itemDiv.className = 'item';
+    itemDiv.innerHTML = `
+      <div class="item-title">${item.title}</div>
+      <div class="item-status">Status: ${item.status}</div>
+      <div class="item-price">Price: $${item.price}</div>
+    `;
+
+    itemDiv.addEventListener('click', () => {
+      window.location.href = `../HTML/available_listings.html?itemId=${item._id}`;
+    });
+    renderItemActions(item, itemDiv);
+    itemListContainer.appendChild(itemDiv);
   });
 }
 
 // Update pagination buttons
-function updatePaginationButtons(allItems) {
-  totalItems = allItems.length;
+function updatePaginationButtons(items) {
+  totalItems = items.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   // Show/hide buttons based on current page
   backButton.style.display = currentPage > 1 ? 'block' : 'none';
   nextButton.style.display = currentPage < totalPages ? 'block' : 'none';
+
+  // Disable buttons if needed
+  backButton.disabled = currentPage <= 1;
+  nextButton.disabled = currentPage >= totalPages;
 }
 
 // Main rendering function
 async function renderItems() {
   try {
     // Fetch all non-deleted items
-    const allItems = await fetchAllItems();
+    allItems = await fetchAllItems();
+
+    // Fetch categories
+    await fetchCategories();
 
     if (allItems.length > 0) {
       // Display items for current page
@@ -147,6 +255,7 @@ function hideAllButtons() {
   nextButton.style.display = 'none';
   backButton.style.display = 'none';
 }
+
 // Save the current page to localStorage
 function saveCurrentPageToLocalStorage() {
   localStorage.setItem('currentPage', currentPage);
@@ -161,22 +270,35 @@ function loadCurrentPageFromLocalStorage() {
 // Update the event listeners to save the page to localStorage
 // Event listener for the "Next" button
 nextButton.addEventListener('click', () => {
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const selectedCategory = categoryDropdown.value;
+  const filteredItems = selectedCategory === 'ALL' 
+    ? allItems 
+    : allItems.filter(item => item.item_name === selectedCategory);
+
+  const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
   if (currentPage < totalPages) {
     currentPage++;
     saveCurrentPageToLocalStorage();
-    renderItems();
+    displayItemsForCurrentPage(filteredItems);
+    updatePaginationButtons(filteredItems);
   }
 });
 
 // Event listener for the "Back" button
 backButton.addEventListener('click', () => {
+  const selectedCategory = categoryDropdown.value;
+  const filteredItems = selectedCategory === 'ALL' 
+    ? allItems 
+    : allItems.filter(item => item.item_name === selectedCategory);
+
   if (currentPage > 1) {
     currentPage--;
     saveCurrentPageToLocalStorage();
-    renderItems();
+    displayItemsForCurrentPage(filteredItems);
+    updatePaginationButtons(filteredItems);
   }
 });
+
 document.getElementById('profileid').addEventListener('click', () => {
   const dropdown = document.querySelector('.dropdown');
   dropdown.classList.toggle('show'); // Toggle the dropdown visibility

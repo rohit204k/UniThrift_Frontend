@@ -540,3 +540,29 @@ p {
 .dropdown.show {
   display: block; /* Show dropdown when 'show' class is added */
 }
+
+/* Category Filter Styles */
+.category-filter {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.category-filter label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+#category-dropdown {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* Dropdown items */
+#category-dropdown option {
+  color: black; /* Set dropdown item text color to black */
+}
+
+
