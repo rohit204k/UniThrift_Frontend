@@ -14,7 +14,7 @@ function renderItemActions(item, container) {
     const currentUserId = getUserIdFromToken(accessToken());
 
     // Only show update and delete buttons if the item belongs to the current user
-    if (item.seller_id === currentUserId) {
+    if (item.seller_id === currentUserId && item.status !== 'SOLD') {
         const actionContainer = document.createElement('div');
         actionContainer.classList.add('item-actions');
 
