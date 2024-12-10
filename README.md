@@ -40,6 +40,36 @@ Launch the application by opening the index.html file in any modern web browser:
 - Double-click `index.html`, or  
 - Right-click and select "Open With" > your preferred browser.
 ```
+# Configuration
+1. Environment Setup
+Ensure you are using a modern web browser (e.g., Chrome, Firefox, Safari) for optimal performance of the application.
+2. Clone the Repository
+ Clone the Repository
+To get started, clone the UniThrift repository to your local machine:
+```bash
+git clone https://github.com/your-username/unithrift.git
+```
+3. Navigate to Project Directory
+Move into the directory containing the project files:
+```bash
+cd unithrift
+```
+4. Static Assets
+Ensure that all static assets (CSS, JavaScript, images) are correctly linked in the index.html file for proper functionality and styling.
+5. API Integration
+Update the API endpoint URLs in your frontend code to point to the backend server. This typically involves modifying configuration files where API URLs are defined.
+6. Environment Variables
+Create a .env file in the root directory if needed to manage environment-specific variables (e.g., API URLs).
+7. Running the Application
+Launch the application by opening the index.html file in any modern web browser:
+```plaintext
+- Double-click `index.html`, or  
+- Right-click and select "Open With" > your preferred browser.
+```
+8. Testing
+Ensure the backend is running and accessible. Use tools like Postman to test API endpoints independently.
+We have used Cypress to write our testcases for testing our frontend.
+
 # Dataset Information
 The UniThrift system does not utilize pre-existing datasets. It stores data in a MongoDB database for efficient and scalable handling of user data and item listings.
 
