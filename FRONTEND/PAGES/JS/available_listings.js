@@ -126,13 +126,24 @@ function displayInteractions(data) {
     });
   } else {
     // Handle single entry for the current user
-    const { comments, status } = data;
+    const { comments, status, seller_name, seller_email, seller_phone } = data;
 
     const singleUserDiv = document.createElement('div');
     singleUserDiv.innerHTML = `
       <p><strong>Your Comments:</strong> ${comments}</p>
       <p><strong>Status:</strong> ${status}</p>
     `;
+
+    // Check if the current user's status is SHARE_DETAILS
+    if (status === "SHARE_DETAILS") {
+      singleUserDiv.innerHTML += `
+        <h4>Seller Information</h4>
+        <p><strong>Name:</strong> ${seller_name || 'N/A'}</p>
+        <p><strong>Email:</strong> ${seller_email || 'N/A'}</p>
+        <p><strong>Phone:</strong> ${seller_phone || 'N/A'}</p>
+      `;
+    }
+
     interestedBuyersList.appendChild(singleUserDiv);
   }
 
