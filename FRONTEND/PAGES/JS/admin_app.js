@@ -63,7 +63,7 @@ signupForm.addEventListener('submit', async (event) => {
         // console.log(university);
         await makeApiRequest('http://18.117.164.164:4001/api/v1/admin/create', 'POST', 
             { first_name, last_name, email, 
-                university_name, university_id,hashedPassword });
+                university_name, university_id,password });
         alert('Signup successful! Please verify your OTP to complete registration.');
         window.location.href = '../HTML/admin_send_email_verification.html'; // Replace 'otp_verification.html' with your desired webpage URL
     } catch (error) {

@@ -4,7 +4,7 @@ document.getElementById('verify-otp-btn').addEventListener('click', async () => 
     const hpassword = document.getElementById('otp-password').value;
 
     // Check if all fields are filled
-    if (!email || !otp || !password) {
+    if (!email || !otp || !hpassword) {
         alert('Please fill in all the required fields.');
         return;
     }

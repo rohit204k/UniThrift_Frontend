@@ -4,7 +4,7 @@ document.getElementById('reset-password-btn').addEventListener('click', async ()
     const hpassword = document.getElementById('reset-password').value;
     
     // Check if all fields are filled
-    if (!email || !otp || !password) {
+    if (!email || !otp || !hpassword) {
         alert('Please fill in all the required fields.');
         return;
     }
