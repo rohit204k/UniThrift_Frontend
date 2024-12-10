@@ -9,7 +9,7 @@ const categorySelect = document.getElementById('category');
 // Function to fetch all categories from the backend
 async function fetchCategories() {
     try {
-        const response = await fetch(`${API_BASE_URL}/item_categories/get_items?page_size=30`, {
+        const response = await fetch(`${API_BASE_URL}/item_categories/get_items`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${getAccessToken()}`, // Using token for authentication

@@ -8,6 +8,9 @@ document.getElementById('send-email-btn').addEventListener('click', async () => 
         return;
     }
 
+    localStorage.setItem('adminresetEmail', email);
+    console.log('Email stored in localStorage');
+
     // Create the request payload
     const requestBody = {
         email: email,

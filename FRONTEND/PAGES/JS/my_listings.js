@@ -150,5 +150,19 @@ document.getElementById('profileid').addEventListener('click', () => {
     const dropdown = document.querySelector('.dropdown');
     dropdown.classList.toggle('show'); // Toggle the dropdown visibility
   });
+
+function logout() {
+// Clear all items from local storage
+localStorage.clear();
+
+// Redirect to index.html
+window.location.href = '../HTML/index.html';
+}
+
+// Event listener for the logout link
+document.getElementById('logout-link').addEventListener('click', (event) => {
+event.preventDefault(); // Prevent the default link behavior
+logout(); // Call the logout function
+});
 // Initial page load
 fetchAllUserListings();

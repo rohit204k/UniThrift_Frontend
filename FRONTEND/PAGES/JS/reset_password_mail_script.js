@@ -7,11 +7,12 @@ document.getElementById('send-email-btn').addEventListener('click', async () => 
         alert('Please enter your email.');
         return;
     }
-
+    localStorage.setItem('userresetEmail', email);
+    console.log('Email stored in localStorage');
     // Create the request payload
     const requestBody = {
         email: email,
-        verification_type: "AUTHENTICATION"
+        verification_type: "FORGOT_PASSWORD"
     };
 
     try {

@@ -18,7 +18,7 @@ const API_BASE_URL = "http://18.117.164.164:4001/api/v1/item_categories";
 
 async function fetchCategories() {
     try {
-        const response = await fetch(`${API_BASE_URL}/get_items?page_size=30`, {
+        const response = await fetch(`${API_BASE_URL}/get_items`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${getAccessToken()}`, // Using token for authentication
@@ -56,7 +56,7 @@ async function addCategoryToBackend(name, description) {
 async function updateCategoryInBackend(id, name, description) {
     try {
         const response = await fetch(`${API_BASE_URL}/update_item_details/${id}`, {
-            method: "PUT",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${getAccessToken()}`, // Adding token to headers
@@ -76,7 +76,7 @@ async function updateCategoryInBackend(id, name, description) {
 async function deleteCategoryFromBackend(id) {
     try {
         const response = await fetch(`${API_BASE_URL}/delete_item/${id}`, {
-            method: "DELETE",
+            method: "POST",
             headers: {
                 "Authorization": `Bearer ${getAccessToken()}`, // Adding token to headers
             },

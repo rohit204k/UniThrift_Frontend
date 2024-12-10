@@ -1,8 +1,16 @@
 document.getElementById('reset-password-btn').addEventListener('click', async () => {
-    const email = document.getElementById('reset-email').value;
+    // const email = document.getElementById('reset-email').value;
+    const email = localStorage.getItem('adminresetEmail');
     const otp = document.getElementById('reset-input').value;
     const hpassword = document.getElementById('reset-password').value;
-    
+    const confirmPassword = document.getElementById('reset-confirm-password').value;
+
+    // Check if passwords match
+    if (hpassword !== confirmPassword) {
+        alert("Passwords do not match.");
+        return;
+    }
+
     // Check if all fields are filled
     if (!email || !otp || !hpassword) {
         alert('Please fill in all the required fields.');

@@ -56,6 +56,14 @@ signupForm.addEventListener('submit', async (event) => {
     const university_name = document.getElementById('signup-universityname').options[document.getElementById('signup-universityname').selectedIndex].textContent; // Selected university name
     const university_id = document.getElementById('signup-universityid').value;
     const hpassword = document.getElementById('signup-password').value;
+    const confirmPassword = document.getElementById('signup-confirm-password').value;
+
+    // Check if passwords match
+    if (hpassword !== confirmPassword) {
+        alert("Passwords do not match.");
+        return;
+    }
+
     // Hash the password using SHA-1
     const password = CryptoJS.SHA1(hpassword).toString();
     try {
@@ -64,8 +72,26 @@ signupForm.addEventListener('submit', async (event) => {
         await makeApiRequest('http://18.117.164.164:4001/api/v1/admin/create', 'POST', 
             { first_name, last_name, email, 
                 university_name, university_id,password });
+
+        localStorage.setItem('adminEmail', email);
+        console.log('Email stored in localStorage');
+
+        localStorage.setItem('adminPassword', hpassword)
+        
+        const otpRequestBody = {
+            email: email, // Using the email entered in the signup form
+            verification_type: "AUTHENTICATION"
+        };
+    
+        console.log('Sending OTP request...'); // Debugging step
+        await makeApiRequest('http://18.117.164.164:4001/api/v1/admin/send_otp', 'POST', otpRequestBody);
+
         alert('Signup successful! Please verify your OTP to complete registration.');
-        window.location.href = '../HTML/admin_send_email_verification.html'; // Replace 'otp_verification.html' with your desired webpage URL
+        // window.location.href = '../HTML/send_email_verification.html'; 
+        window.location.href = '../HTML/admin_otp_verification.html'; // Replace 'otp_verification.html' with your desired webpage URL
+        
+        // alert('Signup successful! Please verify your OTP to complete registration.');
+        // window.location.href = '../HTML/admin_send_email_verification.html'; // Replace 'otp_verification.html' with your desired webpage URL
     } catch (error) {
         console.error('Signup error:', error);
         alert('Signup failed. Please try again.');

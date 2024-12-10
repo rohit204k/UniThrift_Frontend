@@ -58,7 +58,13 @@ signupForm.addEventListener('submit', async (event) => {
     const phone = document.getElementById('signup-phone').value;
     const address = document.getElementById('signup-addr').value;
     const hpassword = document.getElementById('signup-password').value;
+    const confirmPassword = document.getElementById('signup-confirm-password').value;
 
+    // Check if passwords match
+    if (hpassword !== confirmPassword) {
+        alert("Passwords do not match.");
+        return;
+    }
     // Hash the password using SHA-1
     const password = CryptoJS.SHA1(hpassword).toString();
     
@@ -69,8 +75,24 @@ signupForm.addEventListener('submit', async (event) => {
         await makeApiRequest('http://18.117.164.164:4001/api/v1/student/create', 'POST', 
             { first_name, last_name, email, 
             university, university_id, phone, address, password });
+
+        // Store the email in localStorage
+        localStorage.setItem('userEmail', email);
+        console.log('Email stored in localStorage');
+
+        localStorage.setItem('userPassword', hpassword)
+        
+        const otpRequestBody = {
+            email: email, // Using the email entered in the signup form
+            verification_type: "AUTHENTICATION"
+        };
+    
+        console.log('Sending OTP request...'); // Debugging step
+        await makeApiRequest('http://18.117.164.164:4001/api/v1/student/send_otp', 'POST', otpRequestBody);
+
         alert('Signup successful! Please verify your OTP to complete registration.');
-        window.location.href = '../HTML/send_email_verification.html'; // Replace 'otp_verification.html' with your desired webpage URL
+        // window.location.href = '../HTML/send_email_verification.html'; 
+        window.location.href = '../HTML/otp_verification.html'; // Replace 'otp_verification.html' with your desired webpage URL
     } catch (error) {
         console.error('Signup error:', error);
         alert('Signup failed. Please try again.');
