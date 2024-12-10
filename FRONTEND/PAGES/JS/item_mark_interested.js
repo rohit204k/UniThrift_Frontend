@@ -5,77 +5,77 @@ let isMarkedAsInterested = localStorage.getItem('isMarkedAsInterested') === 'tru
 
 // Set the button text and state based on saved interest status
 if (isMarkedAsInterested) {
-  markInterestedButton.style.backgroundColor = 'green';
-  markInterestedButton.disabled = true;
-  markInterestedButton.innerText = 'Marked as Interested';
+  markInterestedButton.style.backgroundColor = 'green';
+  markInterestedButton.disabled = true;
+  markInterestedButton.innerText = 'Marked as Interested';
 }
 
 // Handle the Mark as Interested button click event
 markInterestedButton.addEventListener('click', async () => {
-  if (isMarkedAsInterested) {
-    alert('Already marked as Interested');
-    return; // Exit if already marked
-  }
+  if (isMarkedAsInterested) {
+    alert('Already marked as Interested');
+    return; // Exit if already marked
+  }
 
-  const currentItemId = localStorage.getItem('currentItemId');
-  const userComment = document.getElementById('user-comment').value; // Get user comment
+  const currentItemId = localStorage.getItem('currentItemId');
+  const userComment = document.getElementById('user-comment').value; // Get user comment
 
-  if (!currentItemId) {
-    console.error('Current item ID not found in local storage.');
-    return;
-  }
+  if (!currentItemId) {
+    console.error('Current item ID not found in local storage.');
+    return;
+  }
 
-  try {
-    const apiUrl = 'http://18.117.164.164:4001/api/v1/queueing/mark_interested';
-    const requestBody = {
-      listing_id: currentItemId,
-      comments: userComment || 'I am Interested' // Default comment if none provided
-    };
+  try {
+    const apiUrl = 'http://18.117.164.164:4001/api/v1/queueing/mark_interested';
+    const requestBody = {
+      listing_id: currentItemId,
+      comments: userComment || 'I am Interested' // Default comment if none provided
+    };
 
-    const response = await makeApiRequest(apiUrl, 'POST', requestBody, accessToken());
+    const response = await makeApiRequest(apiUrl, 'POST', requestBody, accessToken());
 
-    if (response && response.status === 'SUCCESS') {
-      // Change button color to green and disable it
-      markInterestedButton.style.backgroundColor = 'green';
-      markInterestedButton.disabled = true;
-      markInterestedButton.innerText = 'Marked as Interested'; // Change button text
-      // Set button text based on whether a comment was provided
-      
-      // Store the marked status in local storage
-      localStorage.setItem('isMarkedAsInterested', 'true');
+    if (response && response.status === 'SUCCESS') {
+      // Change button color to green and disable it
+      markInterestedButton.style.backgroundColor = 'green';
+      markInterestedButton.disabled = true;
+      markInterestedButton.innerText = 'Marked as Interested'; // Change button text
+      // Set button text based on whether a comment was provided
+      
+      // Store the marked status in local storage
+      localStorage.setItem('isMarkedAsInterested', 'true');
 
-      isMarkedAsInterested = true; // Update state to indicate interest marked
-      alert(response.data.message); // Notify the user
-    } else if (response && response.status === 'FAIL' && response.errorCode === 403) {
-      // Handle 403 Forbidden error
-      alert('User already added to the interested list.');
-    } else {
-      console.error('Unexpected response:', response);
-      alert('An unexpected error occurred. Please try again later.');
-    }
-  } catch (error) {
-    console.error('Error marking item as interested:', error);
-    alert('Failed to mark item as interested. Please try again later.');
-  }
+      isMarkedAsInterested = true; // Update state to indicate interest marked
+      alert(response.data.message); // Notify the user
+    } else if (response && response.status === 'FAIL' && response.errorCode === 403) {
+      // Handle 403 Forbidden error
+      alert('User already added to the interested list.');
+    } else {
+      console.error('Unexpected response:', response);
+      alert('An unexpected error occurred. Please try again later.');
+    }
+  } catch (error) {
+    console.error('Error marking item as interested:', error);
+    alert('Failed to mark item as interested. Please try again later.');
+  }
 });
 
 // Function to make API requests (ensure this function is included or imported from item_utils.js)
 async function makeApiRequest(url, method, data = null, accessToken = null) {
-  const headers = {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${accessToken}`
-  };
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${accessToken}`
+  };
 
-  const response = await fetch(url, {
-    method,
-    headers,
-    body: data ? JSON.stringify(data) : null
-  });
+  const response = await fetch(url, {
+    method,
+    headers,
+    body: data ? JSON.stringify(data) : null
+  });
 
-  if (!response.ok) {
-    console.error('API request failed with status code:', response.status);
-    throw new Error(`API request failed with status code ${response.status}`);
-  }
+  if (!response.ok) {
+    console.error('API request failed with status code:', response.status);
+    throw new Error(`API request failed with status code ${response.status}`);
+  }
 
-  return await response.json();
+  return await response.json();
 }
