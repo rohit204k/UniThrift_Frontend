@@ -1,14 +1,15 @@
 document.getElementById('reset-password-btn').addEventListener('click', async () => {
     const email = document.getElementById('reset-email').value;
     const otp = document.getElementById('reset-input').value;
-    const password = document.getElementById('reset-password').value;
-
+    const hpassword = document.getElementById('reset-password').value;
+    
     // Check if all fields are filled
     if (!email || !otp || !password) {
         alert('Please fill in all the required fields.');
         return;
     }
-
+    // Hash the password using SHA-1
+    const password = CryptoJS.SHA1(hpassword).toString();
     try {
         const response = await fetch('http://18.117.164.164:4001/api/v1/admin/verify_otp', {
             method: 'POST',

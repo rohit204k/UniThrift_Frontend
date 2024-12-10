@@ -57,7 +57,12 @@ signupForm.addEventListener('submit', async (event) => {
     const university_id = document.getElementById('signup-universityid').value;
     const phone = document.getElementById('signup-phone').value;
     const address = document.getElementById('signup-addr').value;
-    const password = document.getElementById('signup-password').value;
+    const hpassword = document.getElementById('signup-password').value;
+
+    // Hash the password using SHA-1
+    const password = CryptoJS.SHA1(hpassword).toString();
+    
+    // console.log(hashedPassword);
     try {
         console.log('Sending signup API request'); // Debugging step
         // console.log(university);

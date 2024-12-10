@@ -1,3 +1,6 @@
+// Include the CryptoJS library if not already included in your HTML
+// <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
 // Helper function for API requests
 async function makeApiRequest(url, method, data) {
     const headers = {
@@ -24,20 +27,23 @@ loginForm.addEventListener('submit', async (event) => {
 
     // Gather login form data
     const email = document.getElementById('login-email').value;
-    const password = document.getElementById('login-password').value;
+    const hpassword = document.getElementById('login-password').value;
 
     // Validate inputs
-    if (!email || !password) {
+    if (!email || !hpassword) {
         alert("Please enter both email and password.");
         return; // Prevent further execution if validation fails
     }
     
+    // Hash the password using SHA-1
+    const password = CryptoJS.SHA1(hpassword).toString();
+
     try {
         // Send login request to API
         const response = await makeApiRequest(
             'http://18.117.164.164:4001/api/v1/student/login',
             'POST',
-            { email, password }
+            { email, password } // Use the hashed password
         );
 
         if (response.status === 'SUCCESS') {
@@ -48,7 +54,6 @@ loginForm.addEventListener('submit', async (event) => {
             const userId = response.data.user_id; // Extract user_id from response
             localStorage.setItem('userId', userId); // Store user_id in localStorage
 
-            // alert('Login successful!');
             // Redirect to items.html
             window.location.href = '../HTML/items.html';
         }

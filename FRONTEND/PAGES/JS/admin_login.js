@@ -24,9 +24,11 @@ loginForm.addEventListener('submit', async (event) => {
 
     // Gather login form data
     const email = document.getElementById('login-email').value;
-    const password = document.getElementById('login-password').value;
+    const hpassword = document.getElementById('login-password').value;
+    // Hash the password using SHA-1
+    const password = CryptoJS.SHA1(hpassword).toString();
 
-    if (!email || !password) {
+    if (!email || !hpassword) {
         alert("Please enter both email and password.");
         return; // Prevent further execution if validation fails
     }

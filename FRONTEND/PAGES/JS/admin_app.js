@@ -55,13 +55,15 @@ signupForm.addEventListener('submit', async (event) => {
     // const university = document.getElementById('signup-universityname').value;
     const university_name = document.getElementById('signup-universityname').options[document.getElementById('signup-universityname').selectedIndex].textContent; // Selected university name
     const university_id = document.getElementById('signup-universityid').value;
-    const password = document.getElementById('signup-password').value;
+    const hpassword = document.getElementById('signup-password').value;
+    // Hash the password using SHA-1
+    const password = CryptoJS.SHA1(hpassword).toString();
     try {
         console.log('Sending signup API request'); // Debugging step
         // console.log(university);
         await makeApiRequest('http://18.117.164.164:4001/api/v1/admin/create', 'POST', 
             { first_name, last_name, email, 
-                university_name, university_id, password });
+                university_name, university_id,hashedPassword });
         alert('Signup successful! Please verify your OTP to complete registration.');
         window.location.href = '../HTML/admin_send_email_verification.html'; // Replace 'otp_verification.html' with your desired webpage URL
     } catch (error) {
@@ -93,7 +95,10 @@ const loginForm = document.getElementById('login-form');
 loginForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const email = document.getElementById('login-email').value;
-    const password = document.getElementById('login-password').value;
+    const hpassword = document.getElementById('login-password').value;
+
+    // Hash the password using SHA-1
+    const password = CryptoJS.SHA1(hpassword).toString();
 
     try {
         const { accessToken, user } = await makeApiRequest('http://18.117.164.164:4001/api/v1/admin/login', 'POST', { email, password });
