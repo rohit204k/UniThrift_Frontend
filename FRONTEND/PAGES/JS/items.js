@@ -181,6 +181,7 @@ document.getElementById('profileid').addEventListener('click', () => {
   const dropdown = document.querySelector('.dropdown');
   dropdown.classList.toggle('show'); // Toggle the dropdown visibility
 });
+
 // On initial load
 currentPage = loadCurrentPageFromLocalStorage();
 // Initial page load

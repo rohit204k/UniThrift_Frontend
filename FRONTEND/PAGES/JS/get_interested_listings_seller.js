@@ -117,7 +117,7 @@ async function rejectInterest(buyerId) {
   };
 
   try {
-    const response = await makeApiRequest(apiUrl, 'DELETE', requestBody, accessToken());
+    const response = await makeApiRequest(apiUrl, 'POST', requestBody, accessToken());
 
     if (response && response.status === 'SUCCESS') {
       console.log(response.data.message);
