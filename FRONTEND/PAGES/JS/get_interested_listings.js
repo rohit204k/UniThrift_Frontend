@@ -55,6 +55,14 @@ function displayInterestedListings(data) {
     <p><strong>Status:</strong> ${data.status || 'Unknown'}</p>
     
   `;
+  if (data.status === "SHARE_DETAILS") {
+    interestedListingsContainer.innerHTML += `
+        <h3>Seller Information</h3>
+        <p><strong>Name:</strong> ${data.seller_name || 'N/A'}</p>
+        <p><strong>Email:</strong> ${data.seller_email || 'N/A'}</p>
+        <p><strong>Phone:</strong> ${data.seller_phone || 'N/A'}</p>
+    `;
+}
 }
 
 // Extract listing ID from URL query parameter
