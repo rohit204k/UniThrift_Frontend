@@ -55,7 +55,7 @@ markInterestedButton.addEventListener('click', async () => {
     }
   } catch (error) {
     console.error('Error marking item as interested:', error);
-    alert('Failed to mark item as interested. Please try again later.');
+    alert('Already marked as interested.');
   }
 });
 
