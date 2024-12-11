@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>History</title>
+  <link rel="stylesheet" href="../STYLES/items.css">
+</head>
+<body>
+  <div class="navigation-panel">
+    <button onclick="window.location.href='items.html'">All Available Listings</button>
+    <button onclick="window.location.href='my_listings.html'">My Listings</button>
+    <button onclick="window.location.href='interested_items.html'">Interested Items History</button>
+    <button onclick="window.location.href='create_listing.html'">Create Item Listing</button>
+    <button onclick="window.location.href='history.html'" class="active">History</button>
+    <div class="profile-container">
+      <img src="../TEMPLATES/profile-picture.jpg" id= "profileid" alt="Profile" class="profile-logo" />
+      <div class="dropdown">
+          <a href="update_user.html">Update Profile</a>
+          <a href="#" id="logout-link">Logout</a> 
+      </div>
+  </div>
+  </div>
+
+  <div class="history-content-area">
+    <h1>History</h1>
+    <div class="history-container">
+      <div class="history-buttons">
+        <button id="bought-button" class="history-button active">Bought Items</button>
+        <button id="sold-button" class="history-button">Sold Items</button>
+      </div>
+      <div id="bought-items-list" class="item-list"></div>
+      <div id="sold-items-list" class="item-list" style="display: none;"></div>
+    </div>
+
+    <!-- New section for item details -->
+    <div id="item-popup" class="item-popup" style="display: none;">
+      <div class="popup-content">
+        <button class="close-button" onclick="closePopup()">&times;</button>
+        <h2 id="popup-title"></h2>
+        <p id="popup-price"></p>
+        <p id="popup-description"></p>
+        <p id="popup-seller-name"><strong>Seller:</strong> <span id="seller-name"></span></p>
+        <p id="popup-buyer-name"><strong>Buyer:</strong> <span id="buyer-name"></span></p> <!-- Added buyer name -->
+        <p id="popup-buyer-comments"><strong>Buyer Comments:</strong> <span id="buyer-comments"></span></p>
+      </div>
+    </div>
+
+  <script src="../JS/my_history.js"></script>
+</body>
+</html>

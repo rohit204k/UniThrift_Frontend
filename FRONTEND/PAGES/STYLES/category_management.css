@@ -1,0 +1,249 @@
+/* Basic Styles */
+body {
+    font-family: Arial, sans-serif;
+    padding: 0;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    background-color: #333;
+    color: #fff;
+    height: 100vh; /* Full height */
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.sidebar h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #fff;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    margin: 10px 0;
+}
+
+.sidebar ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.sidebar ul li a:hover {
+    background-color: #575757;
+}
+
+/* Main Content Styles */
+.main-content {
+    margin-left: 250px; /* Align with sidebar width */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Header styles */
+/* .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+} */
+.header {
+    display: flex;
+    justify-content: space-between; /* Space out elements */
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative; /* Relative positioning to control child elements */
+}
+.header-buttons {
+    display: flex; /* Use flexbox for button alignment */
+    align-items: center; /* Vertically align items */
+}
+
+/* Button to add category */
+
+.add-category-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 100px; /* Add some space between the button and the profile */
+}
+
+/* Style for the dialog box */
+.dialog {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.dialog-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 60%;
+    max-width: 500px;
+}
+
+h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Form field styles */
+#category-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+#category-form input,
+#category-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* Textarea specific styles */
+#category-form textarea {
+    resize: none;
+    height: 100px;
+}
+
+/* Cancel and Submit buttons */
+.dialog-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dialog-buttons button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#submit-button {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#cancel-button {
+    background-color: #f44336;
+    color: white;
+}
+
+/* Category list styles */
+#category-list {
+    margin-top: 20px;
+}
+
+#category-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#category-list li {
+    background-color: #f9f9f9;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Action buttons for items */
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.action-buttons button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.action-buttons .delete {
+    background-color: #f44336;
+}
+
+
+.profile-container {
+    position: absolute; /* Absolute positioning for top right corner */
+    top: 3px; /* Distance from the top */
+    right: 20px; /* Distance from the right */
+    z-index: 10; /* Ensure it appears above other elements */
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.dropdown.show {
+    display: block; /* Show dropdown when 'show' class is added */
+  }
+.profile-logo {
+    width: 60px; /* Adjust the size of the profile logo */
+    height: 60px; /* Adjust the size of the profile logo */
+    border-radius: 50%; /* Make it circular */
+    cursor: pointer; /* Change cursor on hover */
+    border: 2px solid #fff; /* Optional: White border */
+}

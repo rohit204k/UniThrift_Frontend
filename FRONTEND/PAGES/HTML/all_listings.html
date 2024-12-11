@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Listings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #333;
+            color: #fff;
+            height: 100vh; /* Full height */
+            position: fixed; /* Fixed sidebar */
+            top: 0;
+            left: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin: 10px 0;
+        }
+        .sidebar ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            display: block;
+        }
+        .sidebar ul li a:hover {
+            background-color: #575757;
+        }
+        .main-content {
+            margin-left: 250px; /* Align with sidebar width */
+            padding: 20px;
+            box-sizing: border-box;
+            flex: 1; /* Allow main content to expand */
+        }
+        .item-list {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 columns */
+            gap: 20px; /* Space between items */
+        }
+        .item {
+            background-color: #f9f9f9; /* Light background color */
+            border: 1px solid #ddd;
+            border-radius: 8px; /* Rounded corners */
+            padding: 20px;
+            text-align: center; /* Center text */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition */
+        }
+        .item:hover {
+            transform: translateY(-3px); /* Lift effect on hover */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+        }
+        .item h2 {
+            margin: 0;
+            font-size: 1.2em; /* Slightly larger font */
+            color: #333; /* Darker text color */
+        }
+        .item p {
+            margin: 5px 0; /* Space between paragraphs */
+            color: #555; /* Slightly darker for description */
+        }
+        .pagination {
+            margin-top: 20px;
+            text-align: center; /* Center pagination controls */
+        }
+        .pagination button {
+            padding: 10px 15px;
+            margin: 0 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff; /* Primary color */
+            color: white;
+            cursor: pointer;
+        }
+        .pagination button:disabled {
+            background-color: #ccc; /* Disabled button color */
+            cursor: not-allowed;
+        }
+        .profile-container {
+            position: fixed; /* Fix position to the viewport */
+            top: 20px; /* Distance from the top */
+            right: 70px; /* Distance from the right */
+            z-index: 10; /* Ensure it appears above other elements */
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown.show {
+            display: block; /* Show dropdown when 'show' class is added */
+        }
+        .profile-logo {
+            width: 60px; /* Adjust the size of the profile logo */
+            height: 60px; /* Adjust the size of the profile logo */
+            border-radius: 50%; /* Make it circular */
+            cursor: pointer; /* Change cursor on hover */
+            border: 2px solid #fff; /* Optional: White border */
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Panel -->
+    <div class="sidebar">
+        <ul>
+            <li><a href="admin_analytics.html">Admin Analytics</a></li>
+            <li><a href="category_management.html">All Categories</a></li>
+            <li><a href="all_students.html">All Students</a></li>
+            <li><a href="all_listings.html">All Listings</a></li>  
+        </ul>
+        <div class="profile-container">
+            <div class="dropdown">
+                <img src="../TEMPLATES/profile-picture.jpg" id= "profileid" alt="Profile" class="profile-logo" />
+                <div class="dropdown-content">
+                    <a href="update_admin.html">Update Profile</a>
+                    <a href="#" id="logout-link">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <h1>Available Listings</h1>
+        <div class="item-list" id="item-list"></div>
+        
+        <div class="pagination">
+            <button id="prevBtn" disabled>Previous</button>
+            <button id="nextBtn">Next</button>
+        </div>
+    </div>
+
+    <script src="../JS/all_listings.js"></script>
+</body>
+</html>

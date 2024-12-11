@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Management</title>
+    <link rel="stylesheet" href="../STYLES/category_management.css">
+</head>
+<body>
+    <!-- Navigation Panel -->
+    <div class="sidebar">
+        <ul>
+            <li><a href="admin_analytics.html">Admin Analytics</a></li>
+            <li><a href="category_management.html">All Categories</a></li>
+            <li><a href="all_students.html">All Students</a></li>
+            <li><a href="all_listings.html">All Listings</a></li>  
+        </ul>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <div class="header">
+            <h2>Categories</h2>
+            <button id="add-category-button" class="add-category-button">Add Category</button>
+            
+            <div class="profile-container">
+                <div class="dropdown">
+                    <img src="../TEMPLATES/profile-picture.jpg" id= "profileid" alt="Profile" class="profile-logo" />
+                    <div class="dropdown-content">
+                        <a href="update_admin.html">Update Profile</a>
+                        <a href="#" id="logout-link">Logout</a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <!-- Category Add/Edit Dialog Box -->
+        <div id="category-dialog" class="dialog">
+            <div class="dialog-content">
+                <h2 id="dialog-title">Add New Category</h2>
+                <form id="category-form">
+                    <label for="category-name">Category Name:</label>
+                    <input type="text" id="category-name" name="category-name" required>
+                    <label for="category-description">Category Description:</label>
+                    <input type="text" id="category-description" name="category-description" required>
+                    <div class="dialog-buttons">
+                        <button type="submit" id="submit-button">Submit</button>
+                        <button type="button" id="cancel-button">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Category List -->
+        <div id="category-list">
+            <ul id="categories"></ul>
+        </div>
+    </div>
+
+    <script src="../JS/category_management.js"></script>
+</body>
+</html>

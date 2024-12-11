@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Profile</title>
+    <link rel="stylesheet" href="../STYLES/items.css">
+    <link rel="stylesheet" href="../STYLES/update_user.css"> <!-- Link to the new CSS file -->
+</head>
+<body>
+    <!-- Navigation Panel -->
+    <div class="navigation-panel">
+        <button onclick="window.location.href='items.html'">All Available Listings</button>
+        <button onclick="window.location.href='my_listings.html'">My Listings</button>
+        <button onclick="window.location.href='interested_items.html'">Interested Items History</button>
+        <button onclick="window.location.href='create_listing.html'">Create Item Listing</button>
+        <button onclick="window.location.href='my_history.html'">History</button>
+        <div class="profile-container">
+            <img src="../TEMPLATES/profile-picture.jpg" id= "profileid" alt="Profile" class="profile-logo" />
+            <div class="dropdown">
+                <a href="update_user.html">Update Profile</a>
+                <a href="#" id="logout-link">Logout</a> 
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Update Your Profile</h1>
+        <form id="update-form">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" disabled>
+
+            <label for="university">University</label>
+            <input type="text" id="university" name="university" disabled>
+
+            <label for="university-id">University ID</label>
+            <input type="text" id="university-id" name="university-id" disabled>
+            
+            <label for="first-name">First Name</label>
+            <input type="text" id="first-name" name="first-name" required>
+
+            <label for="last-name">Last Name</label>
+            <input type="text" id="last-name" name="last-name" required>
+
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="address">Address</label>
+            <input type="text" id="address" name="address" required>
+
+            <button type="submit">Update Details</button>
+            <p id="error-message" style="display: none;"></p>
+        </form>
+
+        <button id="back-button" onclick="window.location.href='items.html'">Back to All Listings</button>
+    </div>
+
+    <script src="../JS/update_user.js"></script>
+</body>
+</html>

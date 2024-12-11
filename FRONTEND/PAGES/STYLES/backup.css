@@ -1,0 +1,76 @@
+.listings-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Adjust the number of columns as needed */
+    gap: 15px; /* Space between items */
+    padding: 20px;
+    justify-items: center; /* Center items horizontally */
+  }
+  
+  .item {
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    color: #333; /* Dark text for readability */
+    width: 200px; /* Consistent width for all items */
+    height: 220px; /* Consistent height for all items */
+    display: flex;
+    flex-direction: column; /* Stacks content vertically */
+    justify-content: space-between; /* Equal spacing between content */
+  }
+  
+  .item:hover {
+    background: rgba(255, 255, 255, 0.9); /* Slightly brighter on hover */
+  }
+  
+  /* Container for Individual Interested Items */
+  .interested-item-container {
+    background: rgba(255, 255, 255, 0.9); /* Slightly opaque white for clarity */
+    padding: 15px;
+    border: 2px solid rgba(0, 0, 0, 0.2); /* Light border for emphasis */
+    border-radius: 10px;
+    margin-bottom: 15px; /* Space between items */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    transition: transform 0.3s ease, background-color 0.3s ease; /* Smooth transitions */
+  }
+  
+  .interested-item-container:hover {
+    background: rgba(240, 240, 240, 0.95); /* Slightly lighter on hover */
+    transform: translateY(-5px); /* Subtle lift effect */
+  }
+  
+  /* Grid for Interested Items */
+  #interested-items-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive columns */
+    gap: 20px; /* Space between grid items */
+    padding: 20px;
+  }
+  
+  /* Title Styling */
+  .container h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Add a shadow for visibility */
+  }
+  
+  /* Buttons for Interested Items (if needed) */
+  .interested-item-actions button {
+    padding: 10px 15px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #fff;
+    transition: background-color 0.3s ease;
+  }
+  
+  .interested-item-actions button:hover {
+    opacity: 0.9;
+  }
+  

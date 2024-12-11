@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login, Reset Password & Profile Update</title>
+    <link rel="stylesheet" href="../STYLES/userstyles.css">
+    <!-- Include CryptoJS library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body>
+    <img src="../TEMPLATES/unithirft_logo.png" alt="UniThrift Logo" id="logo">
+
+    <div class="container">
+        <div id="login-container">
+            <h2>Login</h2>
+            <form id="login-form">
+                <input type="email" id="login-email" placeholder="Email" required>
+                <input type="password" id="login-password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+            <p>Forgot password? <a href="reset_password_mail.html" id="forgot-password-link">Reset Password</a></p>
+            <p id="login-error" style="color: red; display: none;">Invalid email or password. Please try again.</p>
+            <!-- New Sign In Link -->
+            <p>Do not have an account? <a href="user_signin.html">Sign Up</a></p>
+        </div>
+    </div>
+
+    <!-- Include custom JavaScript after CryptoJS -->
+    <script src="../JS/login.js"></script>
+</body>
+</html>

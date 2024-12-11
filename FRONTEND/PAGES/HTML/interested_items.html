@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interested Items History</title>
+    <link rel="stylesheet" href="../STYLES/items.css">
+    <link rel="stylesheet" href="../STYLES/interested_items.css">
+    
+    
+</head>
+<body>
+    <div class="navigation-panel">
+        <button onclick="window.location.href='items.html'">All Available Listings</button>
+        <button onclick="window.location.href='my_listings.html'">My Listings</button>
+        <button onclick="window.location.href='interested_items.html'">Interested Items History</button>
+        <button onclick="window.location.href='create_listing.html'">Create Item Listing</button>
+        <button onclick="window.location.href='my_history.html'">History</button>
+        <div class="profile-container">
+            <img src="../TEMPLATES/profile-picture.jpg" id= "profileid" alt="Profile" class="profile-logo" />
+            <div class="dropdown">
+                <a href="update_user.html">Update Profile</a>
+                <a href="#" id="logout-link">Logout</a> 
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="container">
+            <h1>Interested Items History</h1>
+            <div id="interested-items-container" class="listings-container">
+                <!-- Example Item Structure -->
+                <div class="interested-item-container">
+                    <h2>Item Title</h2>
+                    <p>Description of the item goes here.</p>
+                    <p><strong>Price:</strong> $XX</p>
+                    <!-- <div class="interested-item-actions">
+                        <button class="view-button">View Details</button>
+                    </div> -->
+                </div>
+                <!-- Additional items will be dynamically inserted here -->
+            </div>
+
+            <!-- Pagination Controls -->
+            <button id="my-next-button" style="display:none;">Next</button>
+            <button id="my-back-button" style="display:none;">Back</button>
+        </div>
+    </div>
+
+    <script src="../JS/interested_items.js"></script>
+</body>
+</html>

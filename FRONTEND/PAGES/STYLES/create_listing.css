@@ -1,0 +1,85 @@
+
+
+.main-content {
+  flex-grow: 1;
+  padding: 30px;
+  overflow-y: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  max-width: 800px;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+}
+
+h1 {
+  text-align: center;
+  color: #ece7e7;
+  margin-bottom: 30px;
+}
+
+label {
+  display: block;
+  margin: 10px 0 5px;
+  font-weight: bold;
+}
+
+input[type="text"], input[type="number"], textarea {
+  width: 100%;
+  padding: 12px 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+textarea {
+  height: 150px;
+  resize: vertical;
+}
+
+.create-item-form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.create-item-form button:hover {
+  background-color: #45a049;
+}
+
+#back-button {
+  background-color: #6c757d;
+}
+
+#back-button:hover {
+  background-color: #5a6268;
+}
+/* Profile Logo */
+.profile-logo {
+  position: absolute; /* Position it relative to the nearest positioned ancestor */
+  top: 20px; /* Adjust top position */
+  right: 20px; /* Adjust right position */
+  width: 60px; /* Set width for the logo */
+  height: 60px; /* Set height for the logo */
+  border-radius: 50%; /* Make it circular */
+  cursor: pointer; /* Change cursor to pointer for clickable effect */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Optional shadow for depth */
+}
+.dropdown.show {
+  display: block; /* Show dropdown when 'show' class is added */
+}
