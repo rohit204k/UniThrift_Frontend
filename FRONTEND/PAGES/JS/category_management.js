@@ -56,7 +56,7 @@ async function addCategoryToBackend(name, description) {
 async function updateCategoryInBackend(id, name, description) {
     try {
         const response = await fetch(`${API_BASE_URL}/update_item_details/${id}`, {
-            method: "POST",
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${getAccessToken()}`, // Adding token to headers
@@ -76,7 +76,7 @@ async function updateCategoryInBackend(id, name, description) {
 async function deleteCategoryFromBackend(id) {
     try {
         const response = await fetch(`${API_BASE_URL}/delete_item/${id}`, {
-            method: "POST",
+            method: "DELETE",
             headers: {
                 "Authorization": `Bearer ${getAccessToken()}`, // Adding token to headers
             },
@@ -120,13 +120,23 @@ async function addOrUpdateCategory(name, description) {
     await fetchCategories(); // Refresh the list after adding or updating
 }
 
-
 async function deleteCategory(id) {
     try {
+        // First, find the category name before deleting
+        const categoryToDelete = categories.find(category => category._id === id);
+        
         await deleteCategoryFromBackend(id);
         await fetchCategories();
+        
+        // Show alert with the specific category name
+        if (categoryToDelete) {
+            alert(`Item category: ${categoryToDelete.item_name} is deleted successfully`);
+        } else {
+            alert("Item category deleted successfully");
+        }
     } catch (error) {
         console.error("Error deleting category:", error.message);
+        alert("Failed to delete item category");
     }
 }
 
