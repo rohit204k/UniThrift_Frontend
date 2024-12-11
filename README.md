@@ -123,49 +123,6 @@ We have used Cypress to write our testcases for testing our frontend.
 
 ---
 
-## Features
-### 1. User Management
-
-UniThrift supports two types of users: **Admin** and **Student**, each with distinct login credentials and features tailored to their roles:
-
-#### 1. **Admin Features**
-- **User Management**: Ability to manage student accounts, including verifying new users and handling reported issues.
-- **Analytics and Insights**: Access to platform analytics, including sales trends, top-selling categories, revenue trends over months and overall user engagement.
-- **Moderation Tools**: Add, edit or delete item categories, flag inappropriate listings or delete them helping resolve disputes to maintain a safe environment.
-
-#### 2. **Student Features**
-- **Secure Login**: Students are verified during sign up to ensure a trusted community of users.
-- **Listing Creation**: Easily post items for sale, complete with images, description, and price.
-- **Queue Management**: Mark interest with their comments posted to the seller in a real-time queueing system. Share contact details for sale or reject the buyer if not interested.
-- **Transaction History**: Track all previous transactions for future reference.
-
-### 2. **Buy-Sell Module**
-The heart of UniThrift, this module facilitates the buying and selling of second-hand goods within the university community.
-- **Listing Creation**: Students can create detailed listings for items they wish to sell, including images, descriptions, and price.
-- **My Listings**: Sellers can access the listings they have posted, edit them, or interact with potential buyers.
-- **Secure Interactions**: All buy sell interactions occur within a verified community of University students, reducing risks and ensuring trust.
-- **Item Categories**: Accessed only by Admin users to add, edit or delete broad categories of items like books, electronics, furniture, and more.
-
-### 3. **Queueing Module**
-Designed for high-demand items, the queueing module ensures fairness in transactions.
-- **Mark Interest**: Buyers express interest in an item by joining a queue, ensuring a fair chance for all.
-- **Real-Time Queues**: Buyers are placed in a queue for the listings they are interested in, listed based on the time interest was expressed.
-- **Notifications**: Users receive updates when the seller shares their contact details with them. With the seller details, buyer and sellers can carry on the sale offline. Seller can reject the buyer if they are not interested in selling to them and the buyer will be removed from the queue updating the status to the buyer.
-- **Progress tracking**: The seller can then mark the item as sold completing the transaction, so that the item is no more available for sale.
-
-### 4. **History Tracking Module**
-This module allows users to view a complete sales on the platform.
-- **My Listings history**: Students can review all the items they have sold, including details like price, buyer, and date of sale.
-- **Items bought history**: Students can view all the items they have purchased, including details like price, seller, and date of purchase.
-
-### 5. **Admin Analytics Module**
-Empowering admins to monitor and manage platform activity effectively.
-- **Sales Insights**: Visualizations of sale trends, item categories, and popular listings.
-- **Revenue Tracking**: Monthly revenue trends over months and total revenue generated.
-
----
-
-
 ## Installation
 
 ### Prerequisites
