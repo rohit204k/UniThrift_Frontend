@@ -99,7 +99,54 @@ Launch the application by opening the index.html file in any modern web browser:
 Ensure the backend is running and accessible. Use tools like Postman to test API endpoints independently.
 We have used Cypress to write our testcases for testing our frontend.
 
+# Cypress Testing
+Cypress is a modern end-to-end testing framework that enables efficient and reliable testing of web applications. This guide provides detailed instructions on how to set up and run Cypress tests for the UniThrift platform.
 
+Prerequisites:
+- Ensure the following are installed on your system:
+- Node.js: Version 12 or higher
+- npm or yarn: Package manager for JavaScript
+
+Installation
+- Step 1: Clone the Repository : Clone the UniThrift frontend repository where the Cypress test files are located.
+```bash
+git clone https://github.com/rohit204k/UniThrift_Frontend.git
+```
+- Step 2 : Navigate to the Project Directory
+```bash
+cd UniThrift_Frontend
+```
+- Step 3 : Install Dependencies : Install project dependencies, including Cypress.
+```bash
+npm install
+```
+
+Configuration and Running Tests : 
+### Step 1: Verify Cypress Installation
+Ensure Cypress is installed correctly by running:
+```bash
+npx cypress verify
+```
+### Step 2: Start the Application
+Ensure the frontend and backend servers are running:
+Start the frontend server:
+```bash
+npm start
+```
+### Step 3: Open Cypress Test Runner
+Launch the Cypress Test Runner using:
+```bash
+npx cypress open
+```
+### Step 4: Run All Tests
+Click on the desired test file in the e2e folder.
+Watch as Cypress executes the tests in an interactive browser window.
+Alternatively, to run all tests in headless mode (without the GUI), use: 
+```bash
+npx cypress run
+```
+### Test Files :
+Location - Cypress test files are located in the cypress/e2e directory. Each file tests a specific functionality of the UniThrift application.
 
 # UniThrift_Backend
 
