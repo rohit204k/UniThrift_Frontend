@@ -1,21 +1,21 @@
 // Get the necessary DOM elements
 // Variable to track whether the user has marked interest
-// let isMarkedAsInterested = false;
-let isMarkedAsInterested = localStorage.getItem('isMarkedAsInterested') === 'true';
+let isMarkedAsInterested = false;
+// let isMarkedAsInterested = localStorage.getItem('isMarkedAsInterested') === 'true';
 
 // Set the button text and state based on saved interest status
-if (isMarkedAsInterested) {
-  markInterestedButton.style.backgroundColor = 'green';
-  markInterestedButton.disabled = true;
-  markInterestedButton.innerText = 'Marked as Interested';
-}
+// if (isMarkedAsInterested) {
+//   markInterestedButton.style.backgroundColor = 'green';
+//   markInterestedButton.disabled = true;
+//   markInterestedButton.innerText = 'Marked as Interested';
+// }
 
 // Handle the Mark as Interested button click event
-markInterestedButton.addEventListener('click', async () => {
-  if (isMarkedAsInterested) {
-    alert('Already marked as Interested');
-    return; // Exit if already marked
-  }
+// markInterestedButton.addEventListener('click', async () => {
+//   if (isMarkedAsInterested) {
+//     alert('Already marked as Interested');
+//     return; // Exit if already marked
+//   }
 
   const currentItemId = localStorage.getItem('currentItemId');
   const userComment = document.getElementById('user-comment').value; // Get user comment
@@ -41,8 +41,8 @@ markInterestedButton.addEventListener('click', async () => {
       markInterestedButton.innerText = 'Marked as Interested'; // Change button text
       // Set button text based on whether a comment was provided
       
-      // Store the marked status in local storage
-      localStorage.setItem('isMarkedAsInterested', 'true');
+//       // Store the marked status in local storage
+//       localStorage.setItem('isMarkedAsInterested', 'true');
 
       isMarkedAsInterested = true; // Update state to indicate interest marked
       alert(response.data.message); // Notify the user
