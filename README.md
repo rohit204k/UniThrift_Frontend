@@ -4,6 +4,7 @@ UniThrift is a platform created to support university students in addressing ris
 
 By focusing on a **secure**, **user-friendly**, and **sustainable** shopping experience, UniThrift streamlines buying and selling among verified students, ensuring smooth transactions and trust within the campus community. Its backend, powered by **FastAPI** and **MongoDB**, delivers a reliable and scalable infrastructure hosted on **AWS**. APIs are accessible via **Swagger** and **Postman**, facilitating seamless integration and testing. Key features include real-time sales queues, transaction history tracking, and admin analytics for a better user experience.
 
+* Demo Video Link - [Link](https://drive.google.com/file/d/14pDv1xNlHh6bhlzC4Cjo4D2DtxkNWp7w/view)
 * Frontend Repostory Link - [Link](https://github.com/rohit204k/UniThrift_Frontend)
 * Backend Repository Link - [Link](https://github.com/rohit204k/UniThrift_Backend)
 
